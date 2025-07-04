@@ -103,6 +103,36 @@ export default function Page() {
         seconds: 0,
     });
 
+    // Countdown Logic
+    useEffect(() => {
+        const weddingDate = new Date('2025-09-05T15:00:00'); // 5. September 2025, 15:00 Uhr
+
+        const updateCountdown = () => {
+            const now = new Date();
+            const difference = weddingDate.getTime() - now.getTime();
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+
+                setTimeLeft({ days, hours, minutes, seconds });
+            } else {
+                setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+            }
+        };
+
+        // Update countdown immediately
+        updateCountdown();
+
+        // Update countdown every second
+        const interval = setInterval(updateCountdown, 1000);
+
+        // Cleanup interval on component unmount
+        return () => clearInterval(interval);
+    }, []);
+
     const [rsvpData, setRSVPData] = useState<RSVPData>({
         name: '',
         email: '',
