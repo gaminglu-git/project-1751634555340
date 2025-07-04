@@ -1,6 +1,85 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useForm, Controller } from 'react-hook-form';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { z } from 'zod';
+
+// Zod Schema für Validierung
+const rsvpSchema = z
+    .object({
+        name: z
+            .string()
+            .min(2, 'Name muss mindestens 2 Zeichen lang sein')
+            .max(50, 'Name darf maximal 50 Zeichen lang sein')
+            .regex(
+                /^[a-zA-ZäöüÄÖÜß\s-]+$/,
+                'Name darf nur Buchstaben, Leerzeichen und Bindestriche enthalten',
+            ),
+        email: z
+            .string()
+            .email('Bitte geben Sie eine gültige E-Mail-Adresse ein')
+            .min(1, 'E-Mail-Adresse ist erforderlich'),
+        phone: z
+            .string()
+            .optional()
+            .refine((val) => !val || /^[\+]?[0-9\s\-\(\)]{10,}$/.test(val), {
+                message: 'Bitte geben Sie eine gültige Telefonnummer ein',
+            }),
+        attendance: z.enum(['yes', 'no'], {
+            required_error: 'Bitte wählen Sie aus, ob Sie teilnehmen können',
+        }),
+        mealPreference: z.enum(['meat', 'fish', 'vegetarian', 'vegan']).optional(),
+        allergies: z
+            .string()
+            .max(500, 'Allergieangaben dürfen maximal 500 Zeichen lang sein')
+            .optional(),
+        plusOne: z.boolean().default(false),
+        plusOneName: z.string().optional(),
+        plusOneMeal: z.enum(['meat', 'fish', 'vegetarian', 'vegan']).optional(),
+        message: z.string().max(1000, 'Nachricht darf maximal 1000 Zeichen lang sein').optional(),
+    })
+    .refine(
+        (data) => {
+            // Wenn teilnehmend, muss Menüwahl getroffen werden
+            if (data.attendance === 'yes' && !data.mealPreference) {
+                return false;
+            }
+            return true;
+        },
+        {
+            message: 'Bitte wählen Sie ein Menü aus',
+            path: ['mealPreference'],
+        },
+    )
+    .refine(
+        (data) => {
+            // Wenn Plus One, muss Name angegeben werden
+            if (data.plusOne && (!data.plusOneName || data.plusOneName.trim().length < 2)) {
+                return false;
+            }
+            return true;
+        },
+        {
+            message: 'Bitte geben Sie den Namen Ihrer Begleitung ein',
+            path: ['plusOneName'],
+        },
+    )
+    .refine(
+        (data) => {
+            // Wenn Plus One, muss Menüwahl getroffen werden
+            if (data.plusOne && !data.plusOneMeal) {
+                return false;
+            }
+            return true;
+        },
+        {
+            message: 'Bitte wählen Sie ein Menü für Ihre Begleitung aus',
+            path: ['plusOneMeal'],
+        },
+    );
+
+type RSVPFormData = z.infer<typeof rsvpSchema>;
 
 interface RSVPData {
     name: string;
@@ -55,54 +134,54 @@ export default function Page() {
     return (
         <div
             className="min-h-screen bg-gradient-to-br from-orange-50 to-blue-50"
-            data-oid="67od5ia"
+            data-oid="d.q9704"
         >
             {/* Header */}
             <header
                 className="bg-white/80 backdrop-blur-sm shadow-sm sticky top-0 z-50"
-                data-oid="nak3z2h"
+                data-oid="lqb7zt4"
             >
-                <div className="max-w-6xl mx-auto px-6 py-4" data-oid="axhe5-0">
-                    <nav className="flex justify-center space-x-8" data-oid=".jsc_vv">
+                <div className="max-w-6xl mx-auto px-6 py-4" data-oid="bejt.-v">
+                    <nav className="flex justify-center space-x-8" data-oid="37tlxc-">
                         <button
                             onClick={() => setActiveTab('story')}
                             className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'story' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
-                            data-oid="p:tzd._"
+                            data-oid="3pgf.yu"
                         >
                             Unsere Geschichte
                         </button>
                         <button
                             onClick={() => setActiveTab('events')}
                             className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'events' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
-                            data-oid="nx:n6n:"
+                            data-oid="kk_s_z6"
                         >
                             Termine
                         </button>
                         <button
                             onClick={() => setActiveTab('location')}
                             className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'location' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
-                            data-oid="02m0v2w"
+                            data-oid="5:qpkkc"
                         >
                             Locations
                         </button>
                         <button
                             onClick={() => setActiveTab('gallery')}
                             className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'gallery' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
-                            data-oid="gallery-tab"
+                            data-oid="f6r-cqg"
                         >
                             Galerie
                         </button>
                         <button
                             onClick={() => setActiveTab('travel')}
                             className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'travel' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
-                            data-oid="travel-tab"
+                            data-oid="j713ia7"
                         >
                             Anfahrt
                         </button>
                         <button
                             onClick={() => setActiveTab('rsvp')}
                             className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'rsvp' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
-                            data-oid="rsvp-tab"
+                            data-oid="0c-d4_5"
                         >
                             RSVP
                         </button>
@@ -111,99 +190,99 @@ export default function Page() {
             </header>
 
             {/* Hero Section */}
-            <section className="text-center py-20 px-6" data-oid="6r2a:j5">
-                <div className="max-w-4xl mx-auto" data-oid="jpvn44g">
-                    <div className="mb-8" data-oid=":z991m:">
+            <section className="text-center py-20 px-6" data-oid="jmjnt-.">
+                <div className="max-w-4xl mx-auto" data-oid="gotm8-i">
+                    <div className="mb-8" data-oid="35tw52k">
                         <h1
                             className="text-6xl md:text-8xl wedding-title text-orange-300 mb-4"
-                            data-oid="u8c0cza"
+                            data-oid="fqhpqx_"
                         >
                             Johanna & Lukas
                         </h1>
                         <div
                             className="w-32 h-px bg-gradient-to-r from-orange-300 to-blue-300 mx-auto mb-6"
-                            data-oid="8llr5ne"
+                            data-oid="4tc3jus"
                         ></div>
-                        <p className="text-2xl text-gray-600 wedding-subtitle" data-oid="m.b3maw">
+                        <p className="text-2xl text-gray-600 wedding-subtitle" data-oid="qg:e8.i">
                             Wir heiraten!
                         </p>
 
                         {/* Countdown Timer */}
-                        <div className="mt-8 mb-8" data-oid="l2a:4w2">
+                        <div className="mt-8 mb-8" data-oid="o9kno3t">
                             <p
                                 className="text-lg text-gray-600 wedding-text mb-4"
-                                data-oid="-44czq4"
+                                data-oid="kr24-.6"
                             >
                                 Noch bis zur großen Feier:
                             </p>
                             <div
                                 className="grid grid-cols-4 gap-4 max-w-md mx-auto"
-                                data-oid="wo-b2na"
+                                data-oid="pve0:e-"
                             >
                                 <div
                                     className="bg-white/80 rounded-lg p-4 text-center shadow-sm"
-                                    data-oid="nuxy3w6"
+                                    data-oid="odnlktp"
                                 >
                                     <div
                                         className="text-2xl font-bold text-orange-600 wedding-title"
-                                        data-oid="rdh1aic"
+                                        data-oid=":3gezog"
                                     >
                                         {timeLeft.days}
                                     </div>
                                     <div
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="0nr_.ge"
+                                        data-oid="scok_oc"
                                     >
                                         Tage
                                     </div>
                                 </div>
                                 <div
                                     className="bg-white/80 rounded-lg p-4 text-center shadow-sm"
-                                    data-oid="uxwldod"
+                                    data-oid="5h505ye"
                                 >
                                     <div
                                         className="text-2xl font-bold text-orange-600 wedding-title"
-                                        data-oid="lwp58yp"
+                                        data-oid="j:8_-5x"
                                     >
                                         {timeLeft.hours}
                                     </div>
                                     <div
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="5918rke"
+                                        data-oid="d-n6nsy"
                                     >
                                         Stunden
                                     </div>
                                 </div>
                                 <div
                                     className="bg-white/80 rounded-lg p-4 text-center shadow-sm"
-                                    data-oid="h-g1kl."
+                                    data-oid="hpafglt"
                                 >
                                     <div
                                         className="text-2xl font-bold text-orange-600 wedding-title"
-                                        data-oid="i:d0cb."
+                                        data-oid="6tbcy52"
                                     >
                                         {timeLeft.minutes}
                                     </div>
                                     <div
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="n.ufyh5"
+                                        data-oid="t1n7s4t"
                                     >
                                         Minuten
                                     </div>
                                 </div>
                                 <div
                                     className="bg-white/80 rounded-lg p-4 text-center shadow-sm"
-                                    data-oid="pkkob07"
+                                    data-oid="d48_.oz"
                                 >
                                     <div
                                         className="text-2xl font-bold text-orange-600 wedding-title"
-                                        data-oid="x9s_si:"
+                                        data-oid="lxu:.t8"
                                     >
                                         {timeLeft.seconds}
                                     </div>
                                     <div
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="u--rw0k"
+                                        data-oid="-9najme"
                                     >
                                         Sekunden
                                     </div>
@@ -214,40 +293,40 @@ export default function Page() {
 
                     <div
                         className="bg-white/60 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
-                        data-oid="0efdcjs"
+                        data-oid="9mx7ekq"
                     >
-                        <div className="grid md:grid-cols-2 gap-8" data-oid="a-6yj2w">
-                            <div className="text-center" data-oid="xwj9ehc">
-                                <div className="text-4xl text-orange-400 mb-2" data-oid="f3:oh8-">
+                        <div className="grid md:grid-cols-2 gap-8" data-oid="8.ehdp4">
+                            <div className="text-center" data-oid="9-1uw2w">
+                                <div className="text-4xl text-orange-400 mb-2" data-oid="nyfnfm4">
                                     💒
                                 </div>
                                 <h3
                                     className="text-xl font-medium text-gray-700 mb-2"
-                                    data-oid="s5l.jq0"
+                                    data-oid="w53il_8"
                                 >
                                     Standesamtliche Trauung
                                 </h3>
-                                <p className="text-lg text-blue-600 font-medium" data-oid="xq2jk68">
+                                <p className="text-lg text-blue-600 font-medium" data-oid="gncry0y">
                                     16. August 2025
                                 </p>
-                                <p className="text-gray-600" data-oid="v4cqsx9">
+                                <p className="text-gray-600" data-oid="otz0tdi">
                                     Burg Brüggen
                                 </p>
                             </div>
-                            <div className="text-center" data-oid="-skp-ld">
-                                <div className="text-4xl text-blue-400 mb-2" data-oid="czy4h7s">
+                            <div className="text-center" data-oid="4pt8xih">
+                                <div className="text-4xl text-blue-400 mb-2" data-oid="a1hkiw4">
                                     🎉
                                 </div>
                                 <h3
                                     className="text-xl font-medium text-gray-700 mb-2"
-                                    data-oid="2amuy3p"
+                                    data-oid="wgd25d1"
                                 >
                                     Große Feier
                                 </h3>
-                                <p className="text-lg text-blue-600 font-medium" data-oid="z92a_2e">
+                                <p className="text-lg text-blue-600 font-medium" data-oid="fvxa46.">
                                     5. September 2025
                                 </p>
-                                <p className="text-gray-600" data-oid="7-oh_f1">
+                                <p className="text-gray-600" data-oid="peturw3">
                                     Restaurant Waldau, Bonn
                                 </p>
                             </div>
@@ -257,60 +336,60 @@ export default function Page() {
             </section>
 
             {/* Content Sections */}
-            <main className="max-w-6xl mx-auto px-6 pb-20" data-oid="1213fow">
+            <main className="max-w-6xl mx-auto px-6 pb-20" data-oid="eiy9-.k">
                 {activeTab === 'story' && (
                     <div
                         className="bg-white/70 backdrop-blur-sm rounded-3xl p-12 shadow-lg border border-orange-100"
-                        data-oid="8-w79a:"
+                        data-oid="33:a2:p"
                     >
                         <h2
                             className="text-4xl wedding-title text-center text-gray-700 mb-12"
-                            data-oid="dgh90di"
+                            data-oid="om82g:o"
                         >
                             Unsere Liebesgeschichte
                         </h2>
 
-                        <div className="space-y-12" data-oid="ev3dudu">
-                            <div className="flex items-center space-x-8" data-oid="mjwllkl">
+                        <div className="space-y-12" data-oid="0nlkn:q">
+                            <div className="flex items-center space-x-8" data-oid="w1lv8v2">
                                 <div
                                     className="w-20 h-20 bg-gradient-to-br from-orange-200 to-orange-300 rounded-full flex items-center justify-center text-2xl"
-                                    data-oid="es6vfbr"
+                                    data-oid="le9kmme"
                                 >
                                     💕
                                 </div>
-                                <div data-oid="som4nvh">
+                                <div data-oid="0pxu.n9">
                                     <h3
                                         className="text-2xl font-medium text-gray-700 mb-2"
-                                        data-oid="58k9-_h"
+                                        data-oid="qi2c98j"
                                     >
                                         13. Mai 2018
                                     </h3>
                                     <p
                                         className="text-lg text-gray-600 wedding-text"
-                                        data-oid="e_z-0re"
+                                        data-oid="a7-zo_c"
                                     >
                                         Der Tag, an dem wir uns ineinander verliebt haben
                                     </p>
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-8" data-oid="m.cg2d7">
+                            <div className="flex items-center space-x-8" data-oid="kftgs6g">
                                 <div
                                     className="w-20 h-20 bg-gradient-to-br from-blue-200 to-blue-300 rounded-full flex items-center justify-center text-2xl"
-                                    data-oid="po6q9ey"
+                                    data-oid="g:f87sn"
                                 >
                                     💍
                                 </div>
-                                <div data-oid="ftp-.k-">
+                                <div data-oid=".r9hthy">
                                     <h3
                                         className="text-2xl font-medium text-gray-700 mb-2"
-                                        data-oid="8wmgoah"
+                                        data-oid=":k:4e85"
                                     >
                                         13. August 2024
                                     </h3>
                                     <p
                                         className="text-lg text-gray-600 wedding-text"
-                                        data-oid="s:x8wku"
+                                        data-oid="dcwdy:q"
                                     >
                                         Unser Verlobungstag - der Beginn unseres gemeinsamen Weges
                                         zum Altar
@@ -318,23 +397,23 @@ export default function Page() {
                                 </div>
                             </div>
 
-                            <div className="flex items-center space-x-8" data-oid="aefh42i">
+                            <div className="flex items-center space-x-8" data-oid="jih_fhb">
                                 <div
                                     className="w-20 h-20 bg-gradient-to-br from-orange-300 to-blue-300 rounded-full flex items-center justify-center text-2xl"
-                                    data-oid="v8vm2:_"
+                                    data-oid=".6g_0cr"
                                 >
                                     👰‍♀️🤵‍♂️
                                 </div>
-                                <div data-oid="01.mvys">
+                                <div data-oid="ape-_r8">
                                     <h3
                                         className="text-2xl font-medium text-gray-700 mb-2"
-                                        data-oid="ckpwqrp"
+                                        data-oid="e-1dthb"
                                     >
                                         2025
                                     </h3>
                                     <p
                                         className="text-lg text-gray-600 wedding-text"
-                                        data-oid="lsv8e3g"
+                                        data-oid="p9uk840"
                                     >
                                         Das Jahr, in dem wir Mann und Frau werden
                                     </p>
@@ -345,64 +424,64 @@ export default function Page() {
                 )}
 
                 {activeTab === 'events' && (
-                    <div className="grid md:grid-cols-2 gap-8" data-oid="hal9_c-">
+                    <div className="grid md:grid-cols-2 gap-8" data-oid="yqf4on9">
                         <div
                             className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
-                            data-oid="81p3iwb"
+                            data-oid="ahkv3.j"
                         >
-                            <div className="text-center mb-6" data-oid="00oxgwc">
-                                <div className="text-5xl mb-4" data-oid="5j248yq">
+                            <div className="text-center mb-6" data-oid="pnq6bkl">
+                                <div className="text-5xl mb-4" data-oid="pgn2s6s">
                                     💒
                                 </div>
                                 <h3
                                     className="text-3xl wedding-title text-gray-700 mb-2"
-                                    data-oid=":3.e8nr"
+                                    data-oid="021f7wm"
                                 >
                                     Standesamtliche Trauung
                                 </h3>
                             </div>
-                            <div className="space-y-4" data-oid="4c722i0">
+                            <div className="space-y-4" data-oid="rpokmqc">
                                 <div
                                     className="flex justify-between items-center py-2 border-b border-orange-100"
-                                    data-oid="h9lex.q"
+                                    data-oid="9ck5pcr"
                                 >
-                                    <span className="text-gray-600" data-oid="4:_w5da">
+                                    <span className="text-gray-600" data-oid="zq-23pv">
                                         Datum:
                                     </span>
-                                    <span className="font-medium text-blue-600" data-oid="q8ebjlx">
+                                    <span className="font-medium text-blue-600" data-oid="l6cfl8j">
                                         16. August 2025
                                     </span>
                                 </div>
                                 <div
                                     className="flex justify-between items-center py-2 border-b border-orange-100"
-                                    data-oid="oc.::nu"
+                                    data-oid="uurjlk3"
                                 >
-                                    <span className="text-gray-600" data-oid="4zykwdi">
+                                    <span className="text-gray-600" data-oid="5ez1kuw">
                                         Ort:
                                     </span>
-                                    <span className="font-medium" data-oid="1mmy28g">
+                                    <span className="font-medium" data-oid="aaxz8_5">
                                         Burg Brüggen
                                     </span>
                                 </div>
                                 <div
                                     className="flex justify-between items-center py-2 border-b border-orange-100"
-                                    data-oid="kwpoel4"
+                                    data-oid="de5-au4"
                                 >
-                                    <span className="text-gray-600" data-oid="6.5e9ov">
+                                    <span className="text-gray-600" data-oid="81dedgj">
                                         Adresse:
                                     </span>
-                                    <span className="font-medium" data-oid="croceb7">
+                                    <span className="font-medium" data-oid="zdu0zp_">
                                         41379 Brüggen
                                     </span>
                                 </div>
                                 <div
                                     className="flex justify-between items-center py-2"
-                                    data-oid="lt7wya2"
+                                    data-oid="tdnigrc"
                                 >
-                                    <span className="text-gray-600" data-oid="-i-0y3c">
+                                    <span className="text-gray-600" data-oid="vwrvvaw">
                                         Gäste:
                                     </span>
-                                    <span className="font-medium" data-oid="dt1pign">
+                                    <span className="font-medium" data-oid="pqa5tgg">
                                         Engster Familienkreis
                                     </span>
                                 </div>
@@ -411,61 +490,61 @@ export default function Page() {
 
                         <div
                             className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-blue-100"
-                            data-oid="4jjiewx"
+                            data-oid="59lz3c8"
                         >
-                            <div className="text-center mb-6" data-oid="lsideks">
-                                <div className="text-5xl mb-4" data-oid="z_p1w8t">
+                            <div className="text-center mb-6" data-oid="j.uqts0">
+                                <div className="text-5xl mb-4" data-oid="4y61q0a">
                                     🎉
                                 </div>
                                 <h3
                                     className="text-3xl wedding-title text-gray-700 mb-2"
-                                    data-oid="18h6f0a"
+                                    data-oid="lip0:_y"
                                 >
                                     Große Feier
                                 </h3>
                             </div>
-                            <div className="space-y-4" data-oid="hpuz84v">
+                            <div className="space-y-4" data-oid="gekr_o.">
                                 <div
                                     className="flex justify-between items-center py-2 border-b border-blue-100"
-                                    data-oid="shefaqw"
+                                    data-oid="0um9pj2"
                                 >
-                                    <span className="text-gray-600" data-oid="3c9k5:z">
+                                    <span className="text-gray-600" data-oid="0mbzy1s">
                                         Datum:
                                     </span>
-                                    <span className="font-medium text-blue-600" data-oid="1tsc6n3">
+                                    <span className="font-medium text-blue-600" data-oid="0y2.5ng">
                                         5. September 2025
                                     </span>
                                 </div>
                                 <div
                                     className="flex justify-between items-center py-2 border-b border-blue-100"
-                                    data-oid="mvu73w:"
+                                    data-oid="ele.mw7"
                                 >
-                                    <span className="text-gray-600" data-oid="_hllnm1">
+                                    <span className="text-gray-600" data-oid="kqkrwn_">
                                         Ort:
                                     </span>
-                                    <span className="font-medium" data-oid="z._81q-">
+                                    <span className="font-medium" data-oid="mahxkdd">
                                         Restaurant Waldau
                                     </span>
                                 </div>
                                 <div
                                     className="flex justify-between items-center py-2 border-b border-blue-100"
-                                    data-oid="izv:zqm"
+                                    data-oid="w-x65dq"
                                 >
-                                    <span className="text-gray-600" data-oid="qbb8a94">
+                                    <span className="text-gray-600" data-oid="lq2zv6f">
                                         Stadt:
                                     </span>
-                                    <span className="font-medium" data-oid="m-ylwp9">
+                                    <span className="font-medium" data-oid="19xz6n5">
                                         Bonn
                                     </span>
                                 </div>
                                 <div
                                     className="flex justify-between items-center py-2"
-                                    data-oid=":4xft45"
+                                    data-oid="_n4runw"
                                 >
-                                    <span className="text-gray-600" data-oid="0u:owv8">
+                                    <span className="text-gray-600" data-oid="f.3-x.i">
                                         Gäste:
                                     </span>
-                                    <span className="font-medium" data-oid="da-i:qi">
+                                    <span className="font-medium" data-oid="gddfrec">
                                         Familie & Freunde
                                     </span>
                                 </div>
@@ -475,53 +554,53 @@ export default function Page() {
                 )}
 
                 {activeTab === 'location' && (
-                    <div className="space-y-8" data-oid="2z6z.:t">
+                    <div className="space-y-8" data-oid="o44_ez_">
                         <div
                             className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
-                            data-oid=".k9kjh6"
+                            data-oid="dq5e9n3"
                         >
                             <h3
                                 className="text-3xl wedding-title text-center text-gray-700 mb-8"
-                                data-oid="uea_-mx"
+                                data-oid="w7q7ecb"
                             >
                                 Burg Brüggen
                             </h3>
                             <div
                                 className="grid md:grid-cols-2 gap-8 items-center"
-                                data-oid="m.2myq9"
+                                data-oid="irr0q5r"
                             >
-                                <div data-oid="mshfhtr">
+                                <div data-oid="vqdwze:">
                                     <p
                                         className="text-lg text-gray-600 mb-4 wedding-text"
-                                        data-oid="ni33i8q"
+                                        data-oid="lm47dg9"
                                     >
                                         Unsere standesamtliche Trauung findet in der historischen
                                         Burg Brüggen statt - ein romantischer Ort voller Geschichte
                                         für den Beginn unserer gemeinsamen Zukunft.
                                     </p>
-                                    <div className="space-y-2" data-oid="nbbou43">
-                                        <p className="text-gray-700" data-oid="-mm8igh">
-                                            <strong data-oid="rk0abjo">Adresse:</strong> 41379
+                                    <div className="space-y-2" data-oid="9hlyal-">
+                                        <p className="text-gray-700" data-oid="xebngp_">
+                                            <strong data-oid="p74-bt3">Adresse:</strong> 41379
                                             Brüggen
                                         </p>
-                                        <p className="text-gray-700" data-oid="n3rojdg">
-                                            <strong data-oid="sf2az:c">Datum:</strong> 16. August
+                                        <p className="text-gray-700" data-oid="dsc5:-2">
+                                            <strong data-oid="lkm_y8k">Datum:</strong> 16. August
                                             2025
                                         </p>
-                                        <p className="text-gray-700" data-oid="mbig4cs">
-                                            <strong data-oid="-mw49j-">Gäste:</strong> Engster
+                                        <p className="text-gray-700" data-oid="6e3wan2">
+                                            <strong data-oid="gx5ddzv">Gäste:</strong> Engster
                                             Familienkreis
                                         </p>
                                     </div>
                                 </div>
                                 <div
                                     className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-2xl p-8 text-center"
-                                    data-oid="zy0vjjd"
+                                    data-oid="87w9mr2"
                                 >
-                                    <div className="text-6xl mb-4" data-oid="35_3ziw">
+                                    <div className="text-6xl mb-4" data-oid="n3jn53:">
                                         🏰
                                     </div>
-                                    <p className="text-gray-600" data-oid="0knrri6">
+                                    <p className="text-gray-600" data-oid="m_vprhc">
                                         Historische Burg Brüggen
                                     </p>
                                 </div>
@@ -530,52 +609,52 @@ export default function Page() {
 
                         <div
                             className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-blue-100"
-                            data-oid="z2dga1d"
+                            data-oid=".a34src"
                         >
                             <h3
                                 className="text-3xl wedding-title text-center text-gray-700 mb-8"
-                                data-oid="72l0okl"
+                                data-oid=":sx6j6i"
                             >
                                 Restaurant Waldau
                             </h3>
                             <div
                                 className="grid md:grid-cols-2 gap-8 items-center"
-                                data-oid="a.enerr"
+                                data-oid="so6o3t3"
                             >
                                 <div
                                     className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-2xl p-8 text-center"
-                                    data-oid="skfdjv-"
+                                    data-oid="fac0noe"
                                 >
-                                    <div className="text-6xl mb-4" data-oid="q.e_cqu">
+                                    <div className="text-6xl mb-4" data-oid="ahi:8tr">
                                         🌲
                                     </div>
-                                    <p className="text-gray-600" data-oid="58byh7n">
+                                    <p className="text-gray-600" data-oid="4bj_v7n">
                                         Restaurant Waldau, Bonn
                                     </p>
                                 </div>
-                                <div data-oid="-9r1prp">
+                                <div data-oid="uf6x5j.">
                                     <p
                                         className="text-lg text-gray-600 mb-4 wedding-text"
-                                        data-oid="t08tteo"
+                                        data-oid="h2d9xnp"
                                     >
                                         Unsere große Feier und freie Trauung findet im wunderschönen
                                         Restaurant Waldau in Bonn statt - hier feiern wir mit all
                                         unseren Liebsten diesen besonderen Tag.
                                     </p>
-                                    <div className="space-y-2" data-oid="5e60k0s">
-                                        <p className="text-gray-700" data-oid="z7bavsy">
-                                            <strong data-oid="voey2s1">Ort:</strong> Restaurant
+                                    <div className="space-y-2" data-oid="nu2:r8y">
+                                        <p className="text-gray-700" data-oid="_n0sg2p">
+                                            <strong data-oid="99:7_p6">Ort:</strong> Restaurant
                                             Waldau
                                         </p>
-                                        <p className="text-gray-700" data-oid="lu_v3q5">
-                                            <strong data-oid="l27cxwb">Stadt:</strong> Bonn
+                                        <p className="text-gray-700" data-oid="2he3g.j">
+                                            <strong data-oid="n-wnm1a">Stadt:</strong> Bonn
                                         </p>
-                                        <p className="text-gray-700" data-oid="h:wa28d">
-                                            <strong data-oid="vmvf:dy">Datum:</strong> 5. September
+                                        <p className="text-gray-700" data-oid="n-4cev1">
+                                            <strong data-oid="stfqcb3">Datum:</strong> 5. September
                                             2025
                                         </p>
-                                        <p className="text-gray-700" data-oid="geso3n_">
-                                            <strong data-oid="wj36ua.">Gäste:</strong> Familie &
+                                        <p className="text-gray-700" data-oid="3p:yh-4">
+                                            <strong data-oid="61q6e:6">Gäste:</strong> Familie &
                                             Freunde
                                         </p>
                                     </div>
@@ -588,37 +667,37 @@ export default function Page() {
                 {activeTab === 'gallery' && (
                     <div
                         className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
-                        data-oid="gallery-section"
+                        data-oid="lljtp8p"
                     >
                         <h2
                             className="text-4xl wedding-title text-center text-gray-700 mb-8"
-                            data-oid="gallery-title"
+                            data-oid="yexjqj5"
                         >
                             Unsere Galerie
                         </h2>
 
                         <div
                             className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                            data-oid="dwslzpt"
+                            data-oid="28skqpx"
                         >
                             {/* Placeholder Images - Replace with your actual photos */}
                             <div
                                 className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="h_1zf84"
+                                data-oid="di5nd68"
                             >
-                                <div className="text-center" data-oid="cdcl8ej">
-                                    <div className="text-4xl mb-2" data-oid="5anvz3s">
+                                <div className="text-center" data-oid="6qm70pd">
+                                    <div className="text-4xl mb-2" data-oid="g39b0qs">
                                         💕
                                     </div>
                                     <p
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="zh5z.gp"
+                                        data-oid="roz4yyd"
                                     >
                                         Erstes Date
                                     </p>
                                     <p
                                         className="text-xs text-gray-500 wedding-text"
-                                        data-oid="oft1vgc"
+                                        data-oid="hng-ou6"
                                     >
                                         Mai 2018
                                     </p>
@@ -627,21 +706,21 @@ export default function Page() {
 
                             <div
                                 className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="jdhg7-v"
+                                data-oid="qd6m4e-"
                             >
-                                <div className="text-center" data-oid="5mn7jva">
-                                    <div className="text-4xl mb-2" data-oid="43yj_hi">
+                                <div className="text-center" data-oid="auy6fhs">
+                                    <div className="text-4xl mb-2" data-oid="qhw:v.k">
                                         🏖️
                                     </div>
                                     <p
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="kqac_tr"
+                                        data-oid="p90txia"
                                     >
                                         Urlaub zusammen
                                     </p>
                                     <p
                                         className="text-xs text-gray-500 wedding-text"
-                                        data-oid="g3v7pjz"
+                                        data-oid="5xg7mcr"
                                     >
                                         Sommer 2019
                                     </p>
@@ -650,21 +729,21 @@ export default function Page() {
 
                             <div
                                 className="bg-gradient-to-br from-orange-200 to-blue-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="fpzmic8"
+                                data-oid=".92f.9r"
                             >
-                                <div className="text-center" data-oid="g712tl5">
-                                    <div className="text-4xl mb-2" data-oid="qqgneoh">
+                                <div className="text-center" data-oid="4je31wd">
+                                    <div className="text-4xl mb-2" data-oid="oex4atz">
                                         🏠
                                     </div>
                                     <p
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="zb3dm39"
+                                        data-oid="_wwsp6s"
                                     >
                                         Zusammenziehen
                                     </p>
                                     <p
                                         className="text-xs text-gray-500 wedding-text"
-                                        data-oid="omiin9g"
+                                        data-oid="9g880xq"
                                     >
                                         2020
                                     </p>
@@ -673,21 +752,21 @@ export default function Page() {
 
                             <div
                                 className="bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="d_do-oq"
+                                data-oid="nv.k:9-"
                             >
-                                <div className="text-center" data-oid="3nrxe-3">
-                                    <div className="text-4xl mb-2" data-oid="08_mlp:">
+                                <div className="text-center" data-oid="cpt4kuj">
+                                    <div className="text-4xl mb-2" data-oid=":k5j9q.">
                                         💍
                                     </div>
                                     <p
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="mafxyxz"
+                                        data-oid="ha_55v3"
                                     >
                                         Verlobung
                                     </p>
                                     <p
                                         className="text-xs text-gray-500 wedding-text"
-                                        data-oid="_3h1en2"
+                                        data-oid="8n0l597"
                                     >
                                         August 2024
                                     </p>
@@ -696,21 +775,21 @@ export default function Page() {
 
                             <div
                                 className="bg-gradient-to-br from-green-100 to-green-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="mcv9j56"
+                                data-oid="ygrbyp8"
                             >
-                                <div className="text-center" data-oid="w8uvt3o">
-                                    <div className="text-4xl mb-2" data-oid="pflpics">
+                                <div className="text-center" data-oid="hrzi93q">
+                                    <div className="text-4xl mb-2" data-oid="-yddb25">
                                         📸
                                     </div>
                                     <p
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid=".lz9o:v"
+                                        data-oid="nom1yrk"
                                     >
                                         Engagement Shooting
                                     </p>
                                     <p
                                         className="text-xs text-gray-500 wedding-text"
-                                        data-oid="nldwi-p"
+                                        data-oid="tlhyn3:"
                                     >
                                         2024
                                     </p>
@@ -719,21 +798,21 @@ export default function Page() {
 
                             <div
                                 className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="-o5ucgz"
+                                data-oid="2t-lpyr"
                             >
-                                <div className="text-center" data-oid="wb_tfnv">
-                                    <div className="text-4xl mb-2" data-oid="qd9a-b1">
+                                <div className="text-center" data-oid="70y64e1">
+                                    <div className="text-4xl mb-2" data-oid="w:zk_.8">
                                         🎉
                                     </div>
                                     <p
                                         className="text-sm text-gray-600 wedding-text"
-                                        data-oid="m6i1gj9"
+                                        data-oid="vt8viq-"
                                     >
                                         Bald verheiratet!
                                     </p>
                                     <p
                                         className="text-xs text-gray-500 wedding-text"
-                                        data-oid="om4ys_b"
+                                        data-oid="wy13boa"
                                     >
                                         2025
                                     </p>
@@ -741,8 +820,8 @@ export default function Page() {
                             </div>
                         </div>
 
-                        <div className="mt-8 text-center" data-oid="av816v_">
-                            <p className="text-gray-600 wedding-text" data-oid="7s28sl.">
+                        <div className="mt-8 text-center" data-oid="bsm5b5b">
+                            <p className="text-gray-600 wedding-text" data-oid="9uxntjg">
                                 Mehr Fotos folgen nach der Hochzeit! 📷✨
                             </p>
                         </div>
@@ -750,72 +829,72 @@ export default function Page() {
                 )}
 
                 {activeTab === 'travel' && (
-                    <div className="space-y-8" data-oid="travel-section">
+                    <div className="space-y-8" data-oid="wzer216">
                         {/* Anfahrt */}
                         <div
                             className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
-                            data-oid="travel-info"
+                            data-oid="o3sgtn2"
                         >
                             <h2
                                 className="text-4xl wedding-title text-center text-gray-700 mb-8"
-                                data-oid="travel-title"
+                                data-oid="t-xkd1q"
                             >
                                 Anfahrt & Unterkunft
                             </h2>
 
-                            <div className="grid md:grid-cols-2 gap-8" data-oid="u1ga-x8">
+                            <div className="grid md:grid-cols-2 gap-8" data-oid="_.g2t_r">
                                 {/* Burg Brüggen */}
-                                <div className="space-y-4" data-oid=":88luft">
+                                <div className="space-y-4" data-oid="l.ftvy9">
                                     <h3
                                         className="text-2xl wedding-title text-gray-700 mb-4"
-                                        data-oid="dg_qxx6"
+                                        data-oid="zmy_srq"
                                     >
                                         🏰 Burg Brüggen
                                     </h3>
-                                    <div className="bg-orange-50 rounded-lg p-4" data-oid="83het5r">
+                                    <div className="bg-orange-50 rounded-lg p-4" data-oid="vv91ckm">
                                         <p
                                             className="font-medium wedding-label mb-2"
-                                            data-oid="p-qz5mx"
+                                            data-oid="dvlsfn4"
                                         >
                                             Adresse:
                                         </p>
                                         <p
                                             className="wedding-text text-gray-700 mb-3"
-                                            data-oid="rc_xhm5"
+                                            data-oid="z.a0pyw"
                                         >
-                                            Burgwall 1<br data-oid="ell07zh" />
+                                            Burgwall 1<br data-oid="rxsmiur" />
                                             41379 Brüggen
                                         </p>
 
                                         <p
                                             className="font-medium wedding-label mb-2"
-                                            data-oid="-eqoyuh"
+                                            data-oid="mi9vgvk"
                                         >
                                             Anfahrt mit dem Auto:
                                         </p>
                                         <p
                                             className="wedding-text text-gray-700 mb-3"
-                                            data-oid="jh7.td9"
+                                            data-oid="lba0m0r"
                                         >
                                             A61 → Ausfahrt Brüggen → Richtung Zentrum
                                         </p>
 
                                         <p
                                             className="font-medium wedding-label mb-2"
-                                            data-oid="1cv49b3"
+                                            data-oid="a0ifrec"
                                         >
                                             Parken:
                                         </p>
                                         <p
                                             className="wedding-text text-gray-700 mb-3"
-                                            data-oid="51p._oa"
+                                            data-oid="8:s7xvl"
                                         >
                                             Kostenlose Parkplätze am Burgwall verfügbar
                                         </p>
 
                                         <button
                                             className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors wedding-button"
-                                            data-oid=".6945jw"
+                                            data-oid="cw6803s"
                                         >
                                             📍 In Google Maps öffnen
                                         </button>
@@ -823,58 +902,58 @@ export default function Page() {
                                 </div>
 
                                 {/* Restaurant Waldau */}
-                                <div className="space-y-4" data-oid="azjynti">
+                                <div className="space-y-4" data-oid=":rowsrn">
                                     <h3
                                         className="text-2xl wedding-title text-gray-700 mb-4"
-                                        data-oid="5lss8hm"
+                                        data-oid="s7ywpsw"
                                     >
                                         🌲 Restaurant Waldau
                                     </h3>
-                                    <div className="bg-blue-50 rounded-lg p-4" data-oid="i3uiomo">
+                                    <div className="bg-blue-50 rounded-lg p-4" data-oid="-6z:o.h">
                                         <p
                                             className="font-medium wedding-label mb-2"
-                                            data-oid="x6xefw8"
+                                            data-oid="0szl2m4"
                                         >
                                             Adresse:
                                         </p>
                                         <p
                                             className="wedding-text text-gray-700 mb-3"
-                                            data-oid="-9s-rxp"
+                                            data-oid="60vky9q"
                                         >
                                             Waldaustraße 99
-                                            <br data-oid=":w4dal7" />
+                                            <br data-oid="zzjanr-" />
                                             53177 Bonn
                                         </p>
 
                                         <p
                                             className="font-medium wedding-label mb-2"
-                                            data-oid="1-7jfoz"
+                                            data-oid="ze_fuhi"
                                         >
                                             Anfahrt mit dem Auto:
                                         </p>
                                         <p
                                             className="wedding-text text-gray-700 mb-3"
-                                            data-oid="snwy3jq"
+                                            data-oid="jb0y1fu"
                                         >
                                             A565 → Ausfahrt Bonn-Hardtberg → Richtung Waldau
                                         </p>
 
                                         <p
                                             className="font-medium wedding-label mb-2"
-                                            data-oid="fhos4x-"
+                                            data-oid="bjygd97"
                                         >
                                             Öffentliche Verkehrsmittel:
                                         </p>
                                         <p
                                             className="wedding-text text-gray-700 mb-3"
-                                            data-oid="oc40g:q"
+                                            data-oid="6-fj8_e"
                                         >
                                             Bus 631 bis Haltestelle "Waldau"
                                         </p>
 
                                         <button
                                             className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors wedding-button"
-                                            data-oid="r7k_70f"
+                                            data-oid="qhbn_qt"
                                         >
                                             📍 In Google Maps öffnen
                                         </button>
@@ -886,45 +965,45 @@ export default function Page() {
                         {/* Unterkunft */}
                         <div
                             className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-blue-100"
-                            data-oid="accommodation-info"
+                            data-oid=":yh7y_f"
                         >
                             <h3
                                 className="text-3xl wedding-title text-center text-gray-700 mb-8"
-                                data-oid="05:ttbi"
+                                data-oid="jz.:nvr"
                             >
                                 🏨 Unterkunft-Empfehlungen
                             </h3>
 
-                            <div className="grid md:grid-cols-3 gap-6" data-oid="s8lls1_">
+                            <div className="grid md:grid-cols-3 gap-6" data-oid="e4i6du2">
                                 <div
                                     className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-6"
-                                    data-oid="2spphj5"
+                                    data-oid="bk5oad:"
                                 >
                                     <h4
                                         className="text-xl wedding-title text-gray-700 mb-3"
-                                        data-oid="5twgax1"
+                                        data-oid="f:wb6:k"
                                     >
                                         Hotel Rheinland
                                     </h4>
                                     <p
                                         className="wedding-text text-gray-600 mb-3"
-                                        data-oid="d-0q:ba"
+                                        data-oid="2i.2.59"
                                     >
                                         Nur 5 Minuten vom Restaurant Waldau entfernt
                                     </p>
                                     <p
                                         className="text-sm wedding-text text-gray-500 mb-3"
-                                        data-oid=".ul1a50"
+                                        data-oid="22ugcsu"
                                     >
                                         📍 Bonn-Zentrum
-                                        <br data-oid="kkuvl1m" />
+                                        <br data-oid="k:fo.g8" />
                                         💰 €€ - Mittelklasse
-                                        <br data-oid="8xgbf3p" />
+                                        <br data-oid="6ypzl1g" />
                                         🚗 Kostenlose Parkplätze
                                     </p>
                                     <button
                                         className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors wedding-button text-sm"
-                                        data-oid="7-cpc90"
+                                        data-oid="ky-yoed"
                                     >
                                         Verfügbarkeit prüfen
                                     </button>
@@ -932,33 +1011,33 @@ export default function Page() {
 
                                 <div
                                     className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6"
-                                    data-oid="m1r-u_u"
+                                    data-oid="vgx.lt3"
                                 >
                                     <h4
                                         className="text-xl wedding-title text-gray-700 mb-3"
-                                        data-oid=".c20eib"
+                                        data-oid="wjlkuuk"
                                     >
                                         Pension Waldblick
                                     </h4>
                                     <p
                                         className="wedding-text text-gray-600 mb-3"
-                                        data-oid="5.g.4yn"
+                                        data-oid="tn3ieib"
                                     >
                                         Gemütliche Pension in der Nähe beider Locations
                                     </p>
                                     <p
                                         className="text-sm wedding-text text-gray-500 mb-3"
-                                        data-oid="pjg5g77"
+                                        data-oid="bwrcjxh"
                                     >
                                         📍 Zwischen Brüggen & Bonn
-                                        <br data-oid="d9bwri6" />
+                                        <br data-oid="w425_g-" />
                                         💰 € - Budget-freundlich
-                                        <br data-oid="zeux9kl" />
+                                        <br data-oid="ud_92dc" />
                                         🌳 Ruhige Lage
                                     </p>
                                     <button
                                         className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors wedding-button text-sm"
-                                        data-oid="xcdne6h"
+                                        data-oid="q354ih2"
                                     >
                                         Verfügbarkeit prüfen
                                     </button>
@@ -966,32 +1045,32 @@ export default function Page() {
 
                                 <div
                                     className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6"
-                                    data-oid="f7gf._0"
+                                    data-oid="u0oetz-"
                                 >
                                     <h4
                                         className="text-xl wedding-title text-gray-700 mb-3"
-                                        data-oid="3g56jtp"
+                                        data-oid="mcb-5hd"
                                     >
                                         Boutique Hotel Lux
                                     </h4>
                                     <p
                                         className="wedding-text text-gray-600 mb-3"
-                                        data-oid="79n64h3"
+                                        data-oid="4_xpbfv"
                                     >
                                         Luxuriöse Unterkunft für besondere Anlässe
                                     </p>
                                     <p
                                         className="text-sm wedding-text text-gray-500 mb-3"
-                                        data-oid="pvxc:_-"
+                                        data-oid="sk135zq"
                                     >
                                         📍 Bonn-Zentrum
-                                        <br data-oid="i:h1.hs" />
+                                        <br data-oid="dzz3mc_" />
                                         💰 €€€ - Premium
-                                        <br data-oid="1fq3xoz" />⭐ 4-Sterne Service
+                                        <br data-oid="a5gmq48" />⭐ 4-Sterne Service
                                     </p>
                                     <button
                                         className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors wedding-button text-sm"
-                                        data-oid="va.xgr5"
+                                        data-oid="6f6pb_5"
                                     >
                                         Verfügbarkeit prüfen
                                     </button>
@@ -1000,15 +1079,15 @@ export default function Page() {
 
                             <div
                                 className="mt-8 bg-yellow-50 rounded-lg p-6 text-center"
-                                data-oid="2_.4unh"
+                                data-oid="wi-t4r4"
                             >
                                 <h4
                                     className="text-lg wedding-title text-gray-700 mb-2"
-                                    data-oid="l:6qjm_"
+                                    data-oid="62k4m7v"
                                 >
                                     💡 Tipp für auswärtige Gäste
                                 </h4>
-                                <p className="wedding-text text-gray-600" data-oid="0p-lm5_">
+                                <p className="wedding-text text-gray-600" data-oid="6pv45e0">
                                     Bucht am besten für die Nacht vom 5. auf den 6. September, damit
                                     ihr entspannt feiern könnt! Bei Fragen zur Unterkunft könnt ihr
                                     uns gerne kontaktieren.
@@ -1021,11 +1100,11 @@ export default function Page() {
                 {activeTab === 'rsvp' && (
                     <div
                         className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
-                        data-oid="rsvp-section"
+                        data-oid="fvv-v06"
                     >
                         <h2
                             className="text-4xl wedding-title text-center text-gray-700 mb-8"
-                            data-oid="rsvp-title"
+                            data-oid="1o..6s."
                         >
                             Gästeanmeldung
                         </h2>
@@ -1034,21 +1113,21 @@ export default function Page() {
                             <form
                                 onSubmit={handleRSVPSubmit}
                                 className="max-w-2xl mx-auto space-y-6"
-                                data-oid="etrjoeh"
+                                data-oid="7fio-.e"
                             >
                                 {/* Personal Information */}
-                                <div className="space-y-4" data-oid="t41liol">
+                                <div className="space-y-4" data-oid="hr6qg1o">
                                     <h3
                                         className="text-2xl font-medium text-gray-700 mb-4 wedding-title"
-                                        data-oid="2p-blq8"
+                                        data-oid="8hbfwnp"
                                     >
                                         Persönliche Angaben
                                     </h3>
 
-                                    <div data-oid="usyn:f.">
+                                    <div data-oid="h-v6eji">
                                         <label
                                             className="block text-sm wedding-label text-gray-700 mb-2"
-                                            data-oid="2jkg353"
+                                            data-oid="i8wkiis"
                                         >
                                             Name *
                                         </label>
@@ -1061,15 +1140,15 @@ export default function Page() {
                                             }
                                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent wedding-text"
                                             placeholder="Ihr vollständiger Name"
-                                            data-oid="0zjyzz4"
+                                            data-oid="aflf5a-"
                                         />
                                     </div>
 
-                                    <div className="grid md:grid-cols-2 gap-4" data-oid="43078z8">
-                                        <div data-oid="9oq:ni8">
+                                    <div className="grid md:grid-cols-2 gap-4" data-oid="tlvhypi">
+                                        <div data-oid="2w22tjk">
                                             <label
                                                 className="block text-sm wedding-label text-gray-700 mb-2"
-                                                data-oid="xlah51k"
+                                                data-oid="77r2dqu"
                                             >
                                                 E-Mail *
                                             </label>
@@ -1082,14 +1161,14 @@ export default function Page() {
                                                 }
                                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent wedding-text"
                                                 placeholder="ihre.email@beispiel.de"
-                                                data-oid="p17.qi5"
+                                                data-oid="pc_xe__"
                                             />
                                         </div>
 
-                                        <div data-oid="ht_4w_8">
+                                        <div data-oid="zcfc:q3">
                                             <label
                                                 className="block text-sm wedding-label text-gray-700 mb-2"
-                                                data-oid="8naa10b"
+                                                data-oid="esv731:"
                                             >
                                                 Telefon
                                             </label>
@@ -1101,30 +1180,30 @@ export default function Page() {
                                                 }
                                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent wedding-text"
                                                 placeholder="+49 123 456789"
-                                                data-oid="w3n8ddb"
+                                                data-oid=":c7u2.4"
                                             />
                                         </div>
                                     </div>
                                 </div>
 
                                 {/* Attendance */}
-                                <div className="space-y-4" data-oid="su:ot5.">
+                                <div className="space-y-4" data-oid="0l944ch">
                                     <h3
                                         className="text-2xl font-medium text-gray-700 mb-4 wedding-title"
-                                        data-oid="a48_79."
+                                        data-oid="_dk.e7q"
                                     >
                                         Teilnahme
                                     </h3>
 
-                                    <div data-oid="t6-9irj">
+                                    <div data-oid="jqgoax:">
                                         <label
                                             className="block text-sm wedding-label text-gray-700 mb-3"
-                                            data-oid="z:ss:t3"
+                                            data-oid="vcmfsku"
                                         >
                                             Können Sie an unserer Hochzeit teilnehmen? *
                                         </label>
-                                        <div className="flex space-x-4" data-oid="3u3wxmi">
-                                            <label className="flex items-center" data-oid="h7ld0e:">
+                                        <div className="flex space-x-4" data-oid=".pq02my">
+                                            <label className="flex items-center" data-oid="y.e85fh">
                                                 <input
                                                     type="radio"
                                                     name="attendance"
@@ -1137,17 +1216,17 @@ export default function Page() {
                                                         )
                                                     }
                                                     className="mr-2 text-orange-500 focus:ring-orange-500"
-                                                    data-oid="70d43r-"
+                                                    data-oid="bq1sfjv"
                                                 />
 
                                                 <span
                                                     className="text-green-600 font-medium wedding-text"
-                                                    data-oid="ml4zeca"
+                                                    data-oid="sgtjyn8"
                                                 >
                                                     ✓ Ja, ich komme gerne!
                                                 </span>
                                             </label>
-                                            <label className="flex items-center" data-oid=".55s_ed">
+                                            <label className="flex items-center" data-oid="-l.9tjt">
                                                 <input
                                                     type="radio"
                                                     name="attendance"
@@ -1160,12 +1239,12 @@ export default function Page() {
                                                         )
                                                     }
                                                     className="mr-2 text-orange-500 focus:ring-orange-500"
-                                                    data-oid="7s:iw8u"
+                                                    data-oid="dpljbha"
                                                 />
 
                                                 <span
                                                     className="text-red-600 font-medium wedding-text"
-                                                    data-oid="ehr8ug2"
+                                                    data-oid="ajvv9rc"
                                                 >
                                                     ✗ Leider kann ich nicht
                                                 </span>
@@ -1176,28 +1255,28 @@ export default function Page() {
 
                                 {/* Meal Preferences - only show if attending */}
                                 {rsvpData.attendance === 'yes' && (
-                                    <div className="space-y-4" data-oid="ubf0l1g">
+                                    <div className="space-y-4" data-oid=":z5psx-">
                                         <h3
                                             className="text-2xl font-medium text-gray-700 mb-4 wedding-title"
-                                            data-oid="pab.sum"
+                                            data-oid="e9ylvvt"
                                         >
                                             Menüwahl
                                         </h3>
 
-                                        <div data-oid="mcs496f">
+                                        <div data-oid="f0_kgg4">
                                             <label
                                                 className="block text-sm wedding-label text-gray-700 mb-3"
-                                                data-oid="jhawidg"
+                                                data-oid=":z03wqg"
                                             >
                                                 Ihre Menüwahl *
                                             </label>
                                             <div
                                                 className="grid md:grid-cols-2 gap-3"
-                                                data-oid="dsg-_tk"
+                                                data-oid="4_f2huk"
                                             >
                                                 <label
                                                     className="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer"
-                                                    data-oid="lup7j_3"
+                                                    data-oid="jjrq98f"
                                                 >
                                                     <input
                                                         type="radio"
@@ -1211,19 +1290,19 @@ export default function Page() {
                                                             )
                                                         }
                                                         className="mr-3 text-orange-500 focus:ring-orange-500"
-                                                        data-oid="w4y7_ee"
+                                                        data-oid="h_1h:a:"
                                                     />
 
-                                                    <div data-oid="7tdbzc7">
+                                                    <div data-oid="u6g7ds:">
                                                         <div
                                                             className="font-medium wedding-text"
-                                                            data-oid="lmndcf6"
+                                                            data-oid="dbnh8oz"
                                                         >
                                                             🥩 Fleischgericht
                                                         </div>
                                                         <div
                                                             className="text-sm text-gray-600 wedding-text"
-                                                            data-oid="wo4wo22"
+                                                            data-oid="68gb7om"
                                                         >
                                                             Rinderfilet mit Beilagen
                                                         </div>
@@ -1232,7 +1311,7 @@ export default function Page() {
 
                                                 <label
                                                     className="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer"
-                                                    data-oid="n8j2hzp"
+                                                    data-oid="orcbdhj"
                                                 >
                                                     <input
                                                         type="radio"
@@ -1246,19 +1325,19 @@ export default function Page() {
                                                             )
                                                         }
                                                         className="mr-3 text-orange-500 focus:ring-orange-500"
-                                                        data-oid="56ak-_1"
+                                                        data-oid="p6dkxce"
                                                     />
 
-                                                    <div data-oid="583oocw">
+                                                    <div data-oid="7ql:27n">
                                                         <div
                                                             className="font-medium wedding-text"
-                                                            data-oid="b:t53gd"
+                                                            data-oid="lgvpwlj"
                                                         >
                                                             🐟 Fischgericht
                                                         </div>
                                                         <div
                                                             className="text-sm text-gray-600 wedding-text"
-                                                            data-oid="81s3mci"
+                                                            data-oid="n8r:jj8"
                                                         >
                                                             Lachsfilet mit Gemüse
                                                         </div>
@@ -1267,7 +1346,7 @@ export default function Page() {
 
                                                 <label
                                                     className="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer"
-                                                    data-oid="1z4yrxn"
+                                                    data-oid="_pd358r"
                                                 >
                                                     <input
                                                         type="radio"
@@ -1283,19 +1362,19 @@ export default function Page() {
                                                             )
                                                         }
                                                         className="mr-3 text-orange-500 focus:ring-orange-500"
-                                                        data-oid="rv093_b"
+                                                        data-oid="56muz7w"
                                                     />
 
-                                                    <div data-oid="5f_dy3q">
+                                                    <div data-oid="jlx532u">
                                                         <div
                                                             className="font-medium wedding-text"
-                                                            data-oid="nn3:i2_"
+                                                            data-oid="y3vv15i"
                                                         >
                                                             🥬 Vegetarisch
                                                         </div>
                                                         <div
                                                             className="text-sm text-gray-600 wedding-text"
-                                                            data-oid="5s.oqzf"
+                                                            data-oid="93ywu2i"
                                                         >
                                                             Gemüse-Risotto
                                                         </div>
@@ -1304,7 +1383,7 @@ export default function Page() {
 
                                                 <label
                                                     className="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer"
-                                                    data-oid="v6jna6k"
+                                                    data-oid="o.c91yx"
                                                 >
                                                     <input
                                                         type="radio"
@@ -1320,19 +1399,19 @@ export default function Page() {
                                                             )
                                                         }
                                                         className="mr-3 text-orange-500 focus:ring-orange-500"
-                                                        data-oid="mhhzgx0"
+                                                        data-oid="t2ct66q"
                                                     />
 
-                                                    <div data-oid="868w9yk">
+                                                    <div data-oid="k9b.9qs">
                                                         <div
                                                             className="font-medium wedding-text"
-                                                            data-oid="bk1.10n"
+                                                            data-oid="z-z3jwc"
                                                         >
                                                             🌱 Vegan
                                                         </div>
                                                         <div
                                                             className="text-sm text-gray-600 wedding-text"
-                                                            data-oid="1917r39"
+                                                            data-oid="wkpyq3j"
                                                         >
                                                             Quinoa-Bowl
                                                         </div>
@@ -1341,10 +1420,10 @@ export default function Page() {
                                             </div>
                                         </div>
 
-                                        <div data-oid="ugw.cyr">
+                                        <div data-oid="on0ojoy">
                                             <label
                                                 className="block text-sm wedding-label text-gray-700 mb-2"
-                                                data-oid="w1c9yln"
+                                                data-oid="zq.vfjt"
                                             >
                                                 Allergien oder besondere Ernährungswünsche
                                             </label>
@@ -1356,7 +1435,7 @@ export default function Page() {
                                                 className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent wedding-text"
                                                 rows={3}
                                                 placeholder="Bitte teilen Sie uns mit, wenn Sie Allergien haben oder besondere Ernährungswünsche..."
-                                                data-oid="0vfol9j"
+                                                data-oid="oxl6a3a"
                                             />
                                         </div>
                                     </div>
@@ -1364,16 +1443,16 @@ export default function Page() {
 
                                 {/* Plus One - only show if attending */}
                                 {rsvpData.attendance === 'yes' && (
-                                    <div className="space-y-4" data-oid="l4yq2_s">
+                                    <div className="space-y-4" data-oid="1j2k-vh">
                                         <h3
                                             className="text-2xl font-medium text-gray-700 mb-4 wedding-title"
-                                            data-oid="g:khs4o"
+                                            data-oid="5j1ghhj"
                                         >
                                             Begleitung
                                         </h3>
 
-                                        <div data-oid="4v101qc">
-                                            <label className="flex items-center" data-oid="r5nxrzv">
+                                        <div data-oid="w45_-z2">
+                                            <label className="flex items-center" data-oid="gi70sv7">
                                                 <input
                                                     type="checkbox"
                                                     checked={rsvpData.plusOne}
@@ -1384,12 +1463,12 @@ export default function Page() {
                                                         )
                                                     }
                                                     className="mr-3 text-orange-500 focus:ring-orange-500 rounded"
-                                                    data-oid="a.bysga"
+                                                    data-oid="x6k8a9h"
                                                 />
 
                                                 <span
                                                     className="font-medium wedding-text"
-                                                    data-oid="-5-tgle"
+                                                    data-oid="rqtpjxo"
                                                 >
                                                     Ich bringe eine Begleitung mit
                                                 </span>
@@ -1399,12 +1478,12 @@ export default function Page() {
                                         {rsvpData.plusOne && (
                                             <div
                                                 className="space-y-4 pl-6 border-l-2 border-orange-200"
-                                                data-oid="4uhk_yy"
+                                                data-oid="slz94ea"
                                             >
-                                                <div data-oid="e1h1umd">
+                                                <div data-oid="ed4x.62">
                                                     <label
                                                         className="block text-sm wedding-label text-gray-700 mb-2"
-                                                        data-oid="_imn06y"
+                                                        data-oid="ru2hawp"
                                                     >
                                                         Name der Begleitung *
                                                     </label>
@@ -1420,24 +1499,24 @@ export default function Page() {
                                                         }
                                                         className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent wedding-text"
                                                         placeholder="Name Ihrer Begleitung"
-                                                        data-oid="yfhjbcy"
+                                                        data-oid="gaf8quj"
                                                     />
                                                 </div>
 
-                                                <div data-oid=".20cucx">
+                                                <div data-oid="_:uilgu">
                                                     <label
                                                         className="block text-sm wedding-label text-gray-700 mb-3"
-                                                        data-oid="mchan1."
+                                                        data-oid="hnlb_v-"
                                                     >
                                                         Menüwahl für Begleitung *
                                                     </label>
                                                     <div
                                                         className="grid md:grid-cols-2 gap-3"
-                                                        data-oid="o85fe-d"
+                                                        data-oid="vhsfumm"
                                                     >
                                                         <label
                                                             className="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer"
-                                                            data-oid="1cwgjrq"
+                                                            data-oid=":hjfcuj"
                                                         >
                                                             <input
                                                                 type="radio"
@@ -1453,13 +1532,13 @@ export default function Page() {
                                                                     )
                                                                 }
                                                                 className="mr-3 text-orange-500 focus:ring-orange-500"
-                                                                data-oid="b7odzo7"
+                                                                data-oid="7cp:nwf"
                                                             />
 
-                                                            <div data-oid="bfkik5p">
+                                                            <div data-oid="sembozm">
                                                                 <div
                                                                     className="font-medium wedding-text"
-                                                                    data-oid="s5ubn5_"
+                                                                    data-oid="f::b1j-"
                                                                 >
                                                                     🥩 Fleischgericht
                                                                 </div>
@@ -1468,7 +1547,7 @@ export default function Page() {
 
                                                         <label
                                                             className="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer"
-                                                            data-oid="fwtokf6"
+                                                            data-oid="unzj8lx"
                                                         >
                                                             <input
                                                                 type="radio"
@@ -1484,13 +1563,13 @@ export default function Page() {
                                                                     )
                                                                 }
                                                                 className="mr-3 text-orange-500 focus:ring-orange-500"
-                                                                data-oid="0jnwrk5"
+                                                                data-oid="bhq65._"
                                                             />
 
-                                                            <div data-oid="z9r0lqv">
+                                                            <div data-oid="083xdg2">
                                                                 <div
                                                                     className="font-medium wedding-text"
-                                                                    data-oid="qmnmeui"
+                                                                    data-oid="s7ik3:0"
                                                                 >
                                                                     🐟 Fischgericht
                                                                 </div>
@@ -1499,7 +1578,7 @@ export default function Page() {
 
                                                         <label
                                                             className="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer"
-                                                            data-oid="20-s.u9"
+                                                            data-oid="-u6p2i4"
                                                         >
                                                             <input
                                                                 type="radio"
@@ -1516,13 +1595,13 @@ export default function Page() {
                                                                     )
                                                                 }
                                                                 className="mr-3 text-orange-500 focus:ring-orange-500"
-                                                                data-oid="lliznkj"
+                                                                data-oid="3_t0n9-"
                                                             />
 
-                                                            <div data-oid="1o98pk7">
+                                                            <div data-oid="d08f0n5">
                                                                 <div
                                                                     className="font-medium wedding-text"
-                                                                    data-oid="cz3dugr"
+                                                                    data-oid="-_ln_xv"
                                                                 >
                                                                     🥬 Vegetarisch
                                                                 </div>
@@ -1531,7 +1610,7 @@ export default function Page() {
 
                                                         <label
                                                             className="flex items-center p-3 border border-gray-300 rounded-lg hover:bg-orange-50 cursor-pointer"
-                                                            data-oid="9.bg_5w"
+                                                            data-oid="ah9t_31"
                                                         >
                                                             <input
                                                                 type="radio"
@@ -1547,13 +1626,13 @@ export default function Page() {
                                                                     )
                                                                 }
                                                                 className="mr-3 text-orange-500 focus:ring-orange-500"
-                                                                data-oid="-witj-p"
+                                                                data-oid="vpqefsn"
                                                             />
 
-                                                            <div data-oid="4l9.flv">
+                                                            <div data-oid="fzcal.j">
                                                                 <div
                                                                     className="font-medium wedding-text"
-                                                                    data-oid="6x.5ki_"
+                                                                    data-oid="30-p_kv"
                                                                 >
                                                                     🌱 Vegan
                                                                 </div>
@@ -1567,18 +1646,18 @@ export default function Page() {
                                 )}
 
                                 {/* Message */}
-                                <div className="space-y-4" data-oid="uf9-tlc">
+                                <div className="space-y-4" data-oid="832f91t">
                                     <h3
                                         className="text-2xl font-medium text-gray-700 mb-4 wedding-title"
-                                        data-oid="spr1k9m"
+                                        data-oid="l.caj86"
                                     >
                                         Nachricht
                                     </h3>
 
-                                    <div data-oid="3egl4sk">
+                                    <div data-oid="dqswzhz">
                                         <label
                                             className="block text-sm wedding-label text-gray-700 mb-2"
-                                            data-oid="zl60qq7"
+                                            data-oid="6fh-f8y"
                                         >
                                             Persönliche Nachricht (optional)
                                         </label>
@@ -1590,36 +1669,36 @@ export default function Page() {
                                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent wedding-text"
                                             rows={4}
                                             placeholder="Möchten Sie uns etwas mitteilen? Wir freuen uns über Ihre Nachricht!"
-                                            data-oid="bm.6-sd"
+                                            data-oid="u8:g4n3"
                                         />
                                     </div>
                                 </div>
 
                                 {/* Submit Button */}
-                                <div className="pt-6" data-oid="7yhz5pn">
+                                <div className="pt-6" data-oid="cwfs1fg">
                                     <button
                                         type="submit"
                                         className="w-full bg-gradient-to-r from-orange-400 to-blue-400 text-white wedding-button py-4 px-8 rounded-lg hover:from-orange-500 hover:to-blue-500 transition-all duration-300 shadow-lg"
-                                        data-oid="xpewe-s"
+                                        data-oid="lby:-jt"
                                     >
                                         RSVP absenden
                                     </button>
                                 </div>
                             </form>
                         ) : (
-                            <div className="text-center py-12" data-oid="dn8qsh:">
-                                <div className="text-6xl mb-6" data-oid="v7mtn8l">
+                            <div className="text-center py-12" data-oid="ikaud33">
+                                <div className="text-6xl mb-6" data-oid="uk4dzvr">
                                     🎉
                                 </div>
                                 <h3
                                     className="text-3xl wedding-title text-gray-700 mb-4"
-                                    data-oid=":bk9ubz"
+                                    data-oid="0ugrbnm"
                                 >
                                     Vielen Dank!
                                 </h3>
                                 <p
                                     className="text-lg text-gray-600 mb-6 wedding-text"
-                                    data-oid="x5__dyp"
+                                    data-oid="qolx8ck"
                                 >
                                     Ihre Anmeldung wurde erfolgreich übermittelt. Wir freuen uns
                                     sehr darauf,
@@ -1630,24 +1709,24 @@ export default function Page() {
                                 {rsvpData.attendance === 'yes' && (
                                     <div
                                         className="bg-orange-50 rounded-lg p-6 max-w-md mx-auto"
-                                        data-oid="_s8zuip"
+                                        data-oid="r9vv24-"
                                     >
                                         <h4
                                             className="font-medium text-gray-700 mb-2 wedding-label"
-                                            data-oid="0ov5f4j"
+                                            data-oid="3_r7uei"
                                         >
                                             Ihre Anmeldung:
                                         </h4>
                                         <div
                                             className="text-sm text-gray-600 space-y-1 wedding-text"
-                                            data-oid="h46fzt-"
+                                            data-oid="x-1a_35"
                                         >
-                                            <p data-oid="-11z034">
-                                                <strong data-oid="wqq126:">Name:</strong>{' '}
+                                            <p data-oid="j2-m6f9">
+                                                <strong data-oid="li0cih1">Name:</strong>{' '}
                                                 {rsvpData.name}
                                             </p>
-                                            <p data-oid="wr2lz.7">
-                                                <strong data-oid="oq:1.ly">Menü:</strong>{' '}
+                                            <p data-oid="iadusb6">
+                                                <strong data-oid="s:lo8st">Menü:</strong>{' '}
                                                 {rsvpData.mealPreference === 'meat'
                                                     ? 'Fleischgericht'
                                                     : rsvpData.mealPreference === 'fish'
@@ -1660,14 +1739,14 @@ export default function Page() {
                                             </p>
                                             {rsvpData.plusOne && (
                                                 <>
-                                                    <p data-oid="13u7wb9">
-                                                        <strong data-oid="_h3svue">
+                                                    <p data-oid=".gr_ozy">
+                                                        <strong data-oid="p:k_8g.">
                                                             Begleitung:
                                                         </strong>{' '}
                                                         {rsvpData.plusOneName}
                                                     </p>
-                                                    <p data-oid="z72e9zj">
-                                                        <strong data-oid="9lq6tnv">
+                                                    <p data-oid="7k4n2a1">
+                                                        <strong data-oid="nors0hs">
                                                             Menü Begleitung:
                                                         </strong>{' '}
                                                         {rsvpData.plusOneMeal === 'meat'
@@ -1703,7 +1782,7 @@ export default function Page() {
                                         });
                                     }}
                                     className="mt-6 px-6 py-2 bg-gray-200 text-gray-700 rounded-lg hover:bg-gray-300 transition-colors wedding-button"
-                                    data-oid="0fel79e"
+                                    data-oid="x0nxgva"
                                 >
                                     Neue Anmeldung
                                 </button>
@@ -1716,21 +1795,21 @@ export default function Page() {
             {/* Footer */}
             <footer
                 className="bg-white/80 backdrop-blur-sm border-t border-orange-100 py-12"
-                data-oid="_z31k5y"
+                data-oid="885gimo"
             >
-                <div className="max-w-4xl mx-auto text-center px-6" data-oid="3y47bl6">
-                    <h3 className="text-3xl wedding-title text-gray-700 mb-4" data-oid="c4p4z92">
+                <div className="max-w-4xl mx-auto text-center px-6" data-oid="5_ff0a7">
+                    <h3 className="text-3xl wedding-title text-gray-700 mb-4" data-oid="r.j-rt5">
                         Johanna & Lukas
                     </h3>
-                    <p className="text-gray-600 mb-6 wedding-text" data-oid="sqk_5sc">
+                    <p className="text-gray-600 mb-6 wedding-text" data-oid="iygkaq3">
                         Wir freuen uns darauf, diesen besonderen Tag mit euch zu teilen!
                     </p>
-                    <div className="flex justify-center space-x-4 text-2xl" data-oid="sfstw:z">
-                        <span data-oid="w9g-ly6">💕</span>
-                        <span data-oid="uakzkx-">💍</span>
-                        <span data-oid="1n1s4v8">👰‍♀️</span>
-                        <span data-oid="k_872eb">🤵‍♂️</span>
-                        <span data-oid="edcpw1u">🎉</span>
+                    <div className="flex justify-center space-x-4 text-2xl" data-oid="u9o67ru">
+                        <span data-oid="ee2h7:j">💕</span>
+                        <span data-oid="2euw2-e">💍</span>
+                        <span data-oid="_o16o6j">👰‍♀️</span>
+                        <span data-oid="me-17ra">🤵‍♂️</span>
+                        <span data-oid="bczmj_.">🎉</span>
                     </div>
                 </div>
             </footer>
