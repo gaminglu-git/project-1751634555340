@@ -1,3 +1,4 @@
+import { customHelloBellaYzApo } from '@/app/fonts';
 import type { Metadata } from 'next';
 import './globals.css';
 export const metadata: Metadata = {
@@ -6,7 +7,7 @@ export const metadata: Metadata = {
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
     return (
-        <html lang="en" data-oid="0hwx.ir">
+        <html lang="en" data-oid="0hwx.ir" className={`${customHelloBellaYzApo.variable}`}>
             <body className="" data-oid="hda:sv.">
                 {children}
             </body>
