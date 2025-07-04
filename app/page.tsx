@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 interface RSVPData {
     name: string;
@@ -17,6 +17,13 @@ interface RSVPData {
 
 export default function Page() {
     const [activeTab, setActiveTab] = useState('story');
+    const [timeLeft, setTimeLeft] = useState({
+        days: 0,
+        hours: 0,
+        minutes: 0,
+        seconds: 0,
+    });
+
     const [rsvpData, setRSVPData] = useState<RSVPData>({
         name: '',
         email: '',
@@ -79,6 +86,20 @@ export default function Page() {
                             Locations
                         </button>
                         <button
+                            onClick={() => setActiveTab('gallery')}
+                            className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'gallery' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
+                            data-oid="gallery-tab"
+                        >
+                            Galerie
+                        </button>
+                        <button
+                            onClick={() => setActiveTab('travel')}
+                            className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'travel' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
+                            data-oid="travel-tab"
+                        >
+                            Anfahrt
+                        </button>
+                        <button
                             onClick={() => setActiveTab('rsvp')}
                             className={`wedding-nav px-4 py-2 rounded-full transition-all ${activeTab === 'rsvp' ? 'bg-orange-200 text-orange-800' : 'text-gray-600 hover:text-orange-600'}`}
                             data-oid="rsvp-tab"
@@ -106,6 +127,89 @@ export default function Page() {
                         <p className="text-2xl text-gray-600 wedding-subtitle" data-oid="m.b3maw">
                             Wir heiraten!
                         </p>
+
+                        {/* Countdown Timer */}
+                        <div className="mt-8 mb-8" data-oid="l2a:4w2">
+                            <p
+                                className="text-lg text-gray-600 wedding-text mb-4"
+                                data-oid="-44czq4"
+                            >
+                                Noch bis zur großen Feier:
+                            </p>
+                            <div
+                                className="grid grid-cols-4 gap-4 max-w-md mx-auto"
+                                data-oid="wo-b2na"
+                            >
+                                <div
+                                    className="bg-white/80 rounded-lg p-4 text-center shadow-sm"
+                                    data-oid="nuxy3w6"
+                                >
+                                    <div
+                                        className="text-2xl font-bold text-orange-600 wedding-title"
+                                        data-oid="rdh1aic"
+                                    >
+                                        {timeLeft.days}
+                                    </div>
+                                    <div
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="0nr_.ge"
+                                    >
+                                        Tage
+                                    </div>
+                                </div>
+                                <div
+                                    className="bg-white/80 rounded-lg p-4 text-center shadow-sm"
+                                    data-oid="uxwldod"
+                                >
+                                    <div
+                                        className="text-2xl font-bold text-orange-600 wedding-title"
+                                        data-oid="lwp58yp"
+                                    >
+                                        {timeLeft.hours}
+                                    </div>
+                                    <div
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="5918rke"
+                                    >
+                                        Stunden
+                                    </div>
+                                </div>
+                                <div
+                                    className="bg-white/80 rounded-lg p-4 text-center shadow-sm"
+                                    data-oid="h-g1kl."
+                                >
+                                    <div
+                                        className="text-2xl font-bold text-orange-600 wedding-title"
+                                        data-oid="i:d0cb."
+                                    >
+                                        {timeLeft.minutes}
+                                    </div>
+                                    <div
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="n.ufyh5"
+                                    >
+                                        Minuten
+                                    </div>
+                                </div>
+                                <div
+                                    className="bg-white/80 rounded-lg p-4 text-center shadow-sm"
+                                    data-oid="pkkob07"
+                                >
+                                    <div
+                                        className="text-2xl font-bold text-orange-600 wedding-title"
+                                        data-oid="x9s_si:"
+                                    >
+                                        {timeLeft.seconds}
+                                    </div>
+                                    <div
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="u--rw0k"
+                                    >
+                                        Sekunden
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div
@@ -476,6 +580,439 @@ export default function Page() {
                                         </p>
                                     </div>
                                 </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === 'gallery' && (
+                    <div
+                        className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
+                        data-oid="gallery-section"
+                    >
+                        <h2
+                            className="text-4xl wedding-title text-center text-gray-700 mb-8"
+                            data-oid="gallery-title"
+                        >
+                            Unsere Galerie
+                        </h2>
+
+                        <div
+                            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                            data-oid="dwslzpt"
+                        >
+                            {/* Placeholder Images - Replace with your actual photos */}
+                            <div
+                                className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg aspect-square flex items-center justify-center"
+                                data-oid="h_1zf84"
+                            >
+                                <div className="text-center" data-oid="cdcl8ej">
+                                    <div className="text-4xl mb-2" data-oid="5anvz3s">
+                                        💕
+                                    </div>
+                                    <p
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="zh5z.gp"
+                                    >
+                                        Erstes Date
+                                    </p>
+                                    <p
+                                        className="text-xs text-gray-500 wedding-text"
+                                        data-oid="oft1vgc"
+                                    >
+                                        Mai 2018
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg aspect-square flex items-center justify-center"
+                                data-oid="jdhg7-v"
+                            >
+                                <div className="text-center" data-oid="5mn7jva">
+                                    <div className="text-4xl mb-2" data-oid="43yj_hi">
+                                        🏖️
+                                    </div>
+                                    <p
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="kqac_tr"
+                                    >
+                                        Urlaub zusammen
+                                    </p>
+                                    <p
+                                        className="text-xs text-gray-500 wedding-text"
+                                        data-oid="g3v7pjz"
+                                    >
+                                        Sommer 2019
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                className="bg-gradient-to-br from-orange-200 to-blue-200 rounded-lg aspect-square flex items-center justify-center"
+                                data-oid="fpzmic8"
+                            >
+                                <div className="text-center" data-oid="g712tl5">
+                                    <div className="text-4xl mb-2" data-oid="qqgneoh">
+                                        🏠
+                                    </div>
+                                    <p
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="zb3dm39"
+                                    >
+                                        Zusammenziehen
+                                    </p>
+                                    <p
+                                        className="text-xs text-gray-500 wedding-text"
+                                        data-oid="omiin9g"
+                                    >
+                                        2020
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                className="bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg aspect-square flex items-center justify-center"
+                                data-oid="d_do-oq"
+                            >
+                                <div className="text-center" data-oid="3nrxe-3">
+                                    <div className="text-4xl mb-2" data-oid="08_mlp:">
+                                        💍
+                                    </div>
+                                    <p
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="mafxyxz"
+                                    >
+                                        Verlobung
+                                    </p>
+                                    <p
+                                        className="text-xs text-gray-500 wedding-text"
+                                        data-oid="_3h1en2"
+                                    >
+                                        August 2024
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                className="bg-gradient-to-br from-green-100 to-green-200 rounded-lg aspect-square flex items-center justify-center"
+                                data-oid="mcv9j56"
+                            >
+                                <div className="text-center" data-oid="w8uvt3o">
+                                    <div className="text-4xl mb-2" data-oid="pflpics">
+                                        📸
+                                    </div>
+                                    <p
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid=".lz9o:v"
+                                    >
+                                        Engagement Shooting
+                                    </p>
+                                    <p
+                                        className="text-xs text-gray-500 wedding-text"
+                                        data-oid="nldwi-p"
+                                    >
+                                        2024
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div
+                                className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg aspect-square flex items-center justify-center"
+                                data-oid="-o5ucgz"
+                            >
+                                <div className="text-center" data-oid="wb_tfnv">
+                                    <div className="text-4xl mb-2" data-oid="qd9a-b1">
+                                        🎉
+                                    </div>
+                                    <p
+                                        className="text-sm text-gray-600 wedding-text"
+                                        data-oid="m6i1gj9"
+                                    >
+                                        Bald verheiratet!
+                                    </p>
+                                    <p
+                                        className="text-xs text-gray-500 wedding-text"
+                                        data-oid="om4ys_b"
+                                    >
+                                        2025
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="mt-8 text-center" data-oid="av816v_">
+                            <p className="text-gray-600 wedding-text" data-oid="7s28sl.">
+                                Mehr Fotos folgen nach der Hochzeit! 📷✨
+                            </p>
+                        </div>
+                    </div>
+                )}
+
+                {activeTab === 'travel' && (
+                    <div className="space-y-8" data-oid="travel-section">
+                        {/* Anfahrt */}
+                        <div
+                            className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
+                            data-oid="travel-info"
+                        >
+                            <h2
+                                className="text-4xl wedding-title text-center text-gray-700 mb-8"
+                                data-oid="travel-title"
+                            >
+                                Anfahrt & Unterkunft
+                            </h2>
+
+                            <div className="grid md:grid-cols-2 gap-8" data-oid="u1ga-x8">
+                                {/* Burg Brüggen */}
+                                <div className="space-y-4" data-oid=":88luft">
+                                    <h3
+                                        className="text-2xl wedding-title text-gray-700 mb-4"
+                                        data-oid="dg_qxx6"
+                                    >
+                                        🏰 Burg Brüggen
+                                    </h3>
+                                    <div className="bg-orange-50 rounded-lg p-4" data-oid="83het5r">
+                                        <p
+                                            className="font-medium wedding-label mb-2"
+                                            data-oid="p-qz5mx"
+                                        >
+                                            Adresse:
+                                        </p>
+                                        <p
+                                            className="wedding-text text-gray-700 mb-3"
+                                            data-oid="rc_xhm5"
+                                        >
+                                            Burgwall 1<br data-oid="ell07zh" />
+                                            41379 Brüggen
+                                        </p>
+
+                                        <p
+                                            className="font-medium wedding-label mb-2"
+                                            data-oid="-eqoyuh"
+                                        >
+                                            Anfahrt mit dem Auto:
+                                        </p>
+                                        <p
+                                            className="wedding-text text-gray-700 mb-3"
+                                            data-oid="jh7.td9"
+                                        >
+                                            A61 → Ausfahrt Brüggen → Richtung Zentrum
+                                        </p>
+
+                                        <p
+                                            className="font-medium wedding-label mb-2"
+                                            data-oid="1cv49b3"
+                                        >
+                                            Parken:
+                                        </p>
+                                        <p
+                                            className="wedding-text text-gray-700 mb-3"
+                                            data-oid="51p._oa"
+                                        >
+                                            Kostenlose Parkplätze am Burgwall verfügbar
+                                        </p>
+
+                                        <button
+                                            className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors wedding-button"
+                                            data-oid=".6945jw"
+                                        >
+                                            📍 In Google Maps öffnen
+                                        </button>
+                                    </div>
+                                </div>
+
+                                {/* Restaurant Waldau */}
+                                <div className="space-y-4" data-oid="azjynti">
+                                    <h3
+                                        className="text-2xl wedding-title text-gray-700 mb-4"
+                                        data-oid="5lss8hm"
+                                    >
+                                        🌲 Restaurant Waldau
+                                    </h3>
+                                    <div className="bg-blue-50 rounded-lg p-4" data-oid="i3uiomo">
+                                        <p
+                                            className="font-medium wedding-label mb-2"
+                                            data-oid="x6xefw8"
+                                        >
+                                            Adresse:
+                                        </p>
+                                        <p
+                                            className="wedding-text text-gray-700 mb-3"
+                                            data-oid="-9s-rxp"
+                                        >
+                                            Waldaustraße 99
+                                            <br data-oid=":w4dal7" />
+                                            53177 Bonn
+                                        </p>
+
+                                        <p
+                                            className="font-medium wedding-label mb-2"
+                                            data-oid="1-7jfoz"
+                                        >
+                                            Anfahrt mit dem Auto:
+                                        </p>
+                                        <p
+                                            className="wedding-text text-gray-700 mb-3"
+                                            data-oid="snwy3jq"
+                                        >
+                                            A565 → Ausfahrt Bonn-Hardtberg → Richtung Waldau
+                                        </p>
+
+                                        <p
+                                            className="font-medium wedding-label mb-2"
+                                            data-oid="fhos4x-"
+                                        >
+                                            Öffentliche Verkehrsmittel:
+                                        </p>
+                                        <p
+                                            className="wedding-text text-gray-700 mb-3"
+                                            data-oid="oc40g:q"
+                                        >
+                                            Bus 631 bis Haltestelle "Waldau"
+                                        </p>
+
+                                        <button
+                                            className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors wedding-button"
+                                            data-oid="r7k_70f"
+                                        >
+                                            📍 In Google Maps öffnen
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        {/* Unterkunft */}
+                        <div
+                            className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-blue-100"
+                            data-oid="accommodation-info"
+                        >
+                            <h3
+                                className="text-3xl wedding-title text-center text-gray-700 mb-8"
+                                data-oid="05:ttbi"
+                            >
+                                🏨 Unterkunft-Empfehlungen
+                            </h3>
+
+                            <div className="grid md:grid-cols-3 gap-6" data-oid="s8lls1_">
+                                <div
+                                    className="bg-gradient-to-br from-orange-50 to-orange-100 rounded-lg p-6"
+                                    data-oid="2spphj5"
+                                >
+                                    <h4
+                                        className="text-xl wedding-title text-gray-700 mb-3"
+                                        data-oid="5twgax1"
+                                    >
+                                        Hotel Rheinland
+                                    </h4>
+                                    <p
+                                        className="wedding-text text-gray-600 mb-3"
+                                        data-oid="d-0q:ba"
+                                    >
+                                        Nur 5 Minuten vom Restaurant Waldau entfernt
+                                    </p>
+                                    <p
+                                        className="text-sm wedding-text text-gray-500 mb-3"
+                                        data-oid=".ul1a50"
+                                    >
+                                        📍 Bonn-Zentrum
+                                        <br data-oid="kkuvl1m" />
+                                        💰 €€ - Mittelklasse
+                                        <br data-oid="8xgbf3p" />
+                                        🚗 Kostenlose Parkplätze
+                                    </p>
+                                    <button
+                                        className="bg-orange-500 text-white px-4 py-2 rounded-lg hover:bg-orange-600 transition-colors wedding-button text-sm"
+                                        data-oid="7-cpc90"
+                                    >
+                                        Verfügbarkeit prüfen
+                                    </button>
+                                </div>
+
+                                <div
+                                    className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-lg p-6"
+                                    data-oid="m1r-u_u"
+                                >
+                                    <h4
+                                        className="text-xl wedding-title text-gray-700 mb-3"
+                                        data-oid=".c20eib"
+                                    >
+                                        Pension Waldblick
+                                    </h4>
+                                    <p
+                                        className="wedding-text text-gray-600 mb-3"
+                                        data-oid="5.g.4yn"
+                                    >
+                                        Gemütliche Pension in der Nähe beider Locations
+                                    </p>
+                                    <p
+                                        className="text-sm wedding-text text-gray-500 mb-3"
+                                        data-oid="pjg5g77"
+                                    >
+                                        📍 Zwischen Brüggen & Bonn
+                                        <br data-oid="d9bwri6" />
+                                        💰 € - Budget-freundlich
+                                        <br data-oid="zeux9kl" />
+                                        🌳 Ruhige Lage
+                                    </p>
+                                    <button
+                                        className="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition-colors wedding-button text-sm"
+                                        data-oid="xcdne6h"
+                                    >
+                                        Verfügbarkeit prüfen
+                                    </button>
+                                </div>
+
+                                <div
+                                    className="bg-gradient-to-br from-green-50 to-green-100 rounded-lg p-6"
+                                    data-oid="f7gf._0"
+                                >
+                                    <h4
+                                        className="text-xl wedding-title text-gray-700 mb-3"
+                                        data-oid="3g56jtp"
+                                    >
+                                        Boutique Hotel Lux
+                                    </h4>
+                                    <p
+                                        className="wedding-text text-gray-600 mb-3"
+                                        data-oid="79n64h3"
+                                    >
+                                        Luxuriöse Unterkunft für besondere Anlässe
+                                    </p>
+                                    <p
+                                        className="text-sm wedding-text text-gray-500 mb-3"
+                                        data-oid="pvxc:_-"
+                                    >
+                                        📍 Bonn-Zentrum
+                                        <br data-oid="i:h1.hs" />
+                                        💰 €€€ - Premium
+                                        <br data-oid="1fq3xoz" />⭐ 4-Sterne Service
+                                    </p>
+                                    <button
+                                        className="bg-green-500 text-white px-4 py-2 rounded-lg hover:bg-green-600 transition-colors wedding-button text-sm"
+                                        data-oid="va.xgr5"
+                                    >
+                                        Verfügbarkeit prüfen
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div
+                                className="mt-8 bg-yellow-50 rounded-lg p-6 text-center"
+                                data-oid="2_.4unh"
+                            >
+                                <h4
+                                    className="text-lg wedding-title text-gray-700 mb-2"
+                                    data-oid="l:6qjm_"
+                                >
+                                    💡 Tipp für auswärtige Gäste
+                                </h4>
+                                <p className="wedding-text text-gray-600" data-oid="0p-lm5_">
+                                    Bucht am besten für die Nacht vom 5. auf den 6. September, damit
+                                    ihr entspannt feiern könnt! Bei Fragen zur Unterkunft könnt ihr
+                                    uns gerne kontaktieren.
+                                </p>
                             </div>
                         </div>
                     </div>
