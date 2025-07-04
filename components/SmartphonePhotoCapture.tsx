@@ -78,20 +78,20 @@ export function SmartphonePhotoCapture({
         {
             id: 'gallery',
             label: 'Galerie',
-            icon: <Upload className="w-5 h-5" data-oid="7gpd_3b" />,
+            icon: <Upload className="w-5 h-5" data-oid="x_4af9-" />,
             accept: allowedFormats.join(','),
         },
         {
             id: 'camera-back',
             label: 'Rückkamera',
-            icon: <Camera className="w-5 h-5" data-oid="c975d.x" />,
+            icon: <Camera className="w-5 h-5" data-oid="0713a4m" />,
             accept: 'image/*',
             capture: 'environment',
         },
         {
             id: 'camera-front',
             label: 'Frontkamera',
-            icon: <Smartphone className="w-5 h-5" data-oid="t57a19z" />,
+            icon: <Smartphone className="w-5 h-5" data-oid="l.mnp4i" />,
             accept: 'image/*',
             capture: 'user',
         },
@@ -291,28 +291,28 @@ export function SmartphonePhotoCapture({
         return (
             <div
                 className="bg-gradient-to-r from-green-50 to-blue-50 border border-green-200 rounded-xl p-8 text-center"
-                data-oid=":rom4e5"
+                data-oid=":w049w_"
             >
                 <div
                     className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4"
-                    data-oid="hq42rag"
+                    data-oid="u.4t4wy"
                 >
-                    <Check className="w-8 h-8 text-green-600" data-oid="mdthtrp" />
+                    <Check className="w-8 h-8 text-green-600" data-oid="1.mgvp8" />
                 </div>
                 <h3
                     className="text-xl font-medium text-green-800 mb-3 wedding-title"
-                    data-oid="72-u9.t"
+                    data-oid="u1v7ebi"
                 >
                     Foto erfolgreich hochgeladen! 📸
                 </h3>
-                <p className="text-green-700 mb-4" data-oid="zhba-u9">
+                <p className="text-green-700 mb-4" data-oid="fjxi8k:">
                     Vielen Dank! Ihr wunderschönes Foto wird nach Überprüfung in unserer Galerie
                     angezeigt.
                 </p>
                 <button
                     onClick={() => setUploadSuccess(false)}
                     className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
-                    data-oid="qq_qd9b"
+                    data-oid="wi8nujt"
                 >
                     Weiteres Foto hinzufügen
                 </button>
@@ -323,19 +323,19 @@ export function SmartphonePhotoCapture({
     return (
         <div
             className="bg-white/80 backdrop-blur-sm rounded-xl p-6 border border-orange-100 shadow-lg"
-            data-oid="bco-06m"
+            data-oid="fhu8z7n"
         >
-            <div className="text-center mb-6" data-oid="oi:8kco">
+            <div className="text-center mb-6" data-oid=".24o_0b">
                 <div
                     className="w-12 h-12 bg-gradient-to-r from-orange-400 to-blue-400 rounded-full flex items-center justify-center mx-auto mb-3"
-                    data-oid="7iu.j-5"
+                    data-oid="8htlw9c"
                 >
-                    <Camera className="w-6 h-6 text-white" data-oid=".rd.h63" />
+                    <Camera className="w-6 h-6 text-white" data-oid="7.eqj2u" />
                 </div>
-                <h3 className="text-2xl font-medium text-gray-700 wedding-title" data-oid="oujmx35">
+                <h3 className="text-2xl font-medium text-gray-700 wedding-title" data-oid="wr3-skq">
                     📸 Teilen Sie Ihre Momente
                 </h3>
-                <p className="text-gray-600 text-sm mt-2" data-oid="qw204k8">
+                <p className="text-gray-600 text-sm mt-2" data-oid="7vhruua">
                     Nehmen Sie ein Foto auf oder wählen Sie eines aus Ihrer Galerie
                 </p>
             </div>
@@ -344,25 +344,25 @@ export function SmartphonePhotoCapture({
             {deviceInfo.isMobile && (
                 <div
                     className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4"
-                    data-oid="0nd2226"
+                    data-oid="16j9vn6"
                 >
-                    <div className="flex items-center gap-2 text-blue-700" data-oid=".xkfa4a">
-                        <Smartphone className="w-4 h-4" data-oid="ozmj45b" />
-                        <span className="text-sm font-medium" data-oid="aggf-dq">
+                    <div className="flex items-center gap-2 text-blue-700" data-oid="enakq::">
+                        <Smartphone className="w-4 h-4" data-oid="kl3o9b1" />
+                        <span className="text-sm font-medium" data-oid="6143r0.">
                             Mobiles Gerät erkannt - Kamera verfügbar!
                         </span>
                     </div>
                 </div>
             )}
 
-            <form onSubmit={handleSubmit} className="space-y-6" data-oid="39qe_gn">
+            <form onSubmit={handleSubmit} className="space-y-6" data-oid="zqdk_g3">
                 {/* Capture Options */}
-                <div className="space-y-4" data-oid="k.5e:dr">
-                    <label className="block text-sm font-medium text-gray-700" data-oid="gp4z094">
+                <div className="space-y-4" data-oid="f4a8g2n">
+                    <label className="block text-sm font-medium text-gray-700" data-oid="ol._q98">
                         Foto aufnehmen oder auswählen
                     </label>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" data-oid="u-5bk3x">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3" data-oid="od7ud80">
                         {captureModes.map((mode) => (
                             <button
                                 key={mode.id}
@@ -370,14 +370,14 @@ export function SmartphonePhotoCapture({
                                 onClick={() => triggerCapture(mode)}
                                 disabled={isCompressing}
                                 className="flex flex-col items-center justify-center gap-3 p-4 border-2 border-dashed border-gray-300 rounded-xl hover:border-orange-400 hover:bg-orange-50 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed"
-                                data-oid="7vx35vn"
+                                data-oid="d7fvqfs"
                             >
-                                <div className="text-orange-500" data-oid="4x2eit2">
+                                <div className="text-orange-500" data-oid="h.nth_7">
                                     {mode.icon}
                                 </div>
                                 <span
                                     className="text-sm font-medium text-gray-700"
-                                    data-oid="_mai320"
+                                    data-oid="l:mkf_:"
                                 >
                                     {mode.label}
                                 </span>
@@ -392,7 +392,7 @@ export function SmartphonePhotoCapture({
                         accept={allowedFormats.join(',')}
                         onChange={handleFileInputChange}
                         className="hidden"
-                        data-oid="tspopj9"
+                        data-oid="n28a_y4"
                     />
 
                     <input
@@ -402,7 +402,7 @@ export function SmartphonePhotoCapture({
                         capture="environment"
                         onChange={handleFileInputChange}
                         className="hidden"
-                        data-oid="xgh.nz-"
+                        data-oid="f3bt1rr"
                     />
 
                     <input
@@ -412,7 +412,7 @@ export function SmartphonePhotoCapture({
                         capture="user"
                         onChange={handleFileInputChange}
                         className="hidden"
-                        data-oid="4u-9xa3"
+                        data-oid="n7:t2_j"
                     />
                 </div>
 
@@ -420,14 +420,14 @@ export function SmartphonePhotoCapture({
                 {isCompressing && (
                     <div
                         className="bg-blue-50 border border-blue-200 rounded-lg p-4"
-                        data-oid="uzed9g4"
+                        data-oid="jtzq:o5"
                     >
-                        <div className="flex items-center gap-3" data-oid="0gwxm3a">
+                        <div className="flex items-center gap-3" data-oid="bpeyi5r">
                             <div
                                 className="animate-spin rounded-full h-5 w-5 border-b-2 border-blue-500"
-                                data-oid="-mgjr:c"
+                                data-oid="e09wer0"
                             ></div>
-                            <span className="text-blue-700 font-medium" data-oid="69ovnh7">
+                            <span className="text-blue-700 font-medium" data-oid="7p5-xs4">
                                 Bild wird optimiert...
                             </span>
                         </div>
@@ -436,45 +436,45 @@ export function SmartphonePhotoCapture({
 
                 {/* Preview */}
                 {previewUrl && (
-                    <div className="space-y-3" data-oid="cr14u18">
-                        <div className="relative" data-oid="b6zoxuk">
+                    <div className="space-y-3" data-oid="s7d-dda">
+                        <div className="relative" data-oid=".m1yrwv">
                             <img
                                 src={previewUrl}
                                 alt="Vorschau"
                                 className="w-full h-64 object-cover rounded-xl shadow-md"
-                                data-oid="m9gicwq"
+                                data-oid="-f97jms"
                             />
 
                             <button
                                 type="button"
                                 onClick={clearSelection}
                                 className="absolute top-3 right-3 p-2 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors shadow-lg"
-                                data-oid="jmd.8:8"
+                                data-oid="kfzmim1"
                             >
-                                <X className="w-4 h-4" data-oid="c9:r2o9" />
+                                <X className="w-4 h-4" data-oid="sddrs50" />
                             </button>
                         </div>
 
                         {/* File Info */}
-                        <div className="bg-gray-50 rounded-lg p-3" data-oid="9tg3c3m">
-                            <div className="grid grid-cols-2 gap-4 text-sm" data-oid="m1sdk5d">
-                                <div data-oid="ytiv19.">
-                                    <span className="text-gray-600" data-oid="hx31o2v">
+                        <div className="bg-gray-50 rounded-lg p-3" data-oid="0mx0wje">
+                            <div className="grid grid-cols-2 gap-4 text-sm" data-oid="ebr0_45">
+                                <div data-oid="1tzr:ix">
+                                    <span className="text-gray-600" data-oid="bvwo.a6">
                                         Original:
                                     </span>
-                                    <span className="ml-2 font-medium" data-oid="gn6i_ch">
+                                    <span className="ml-2 font-medium" data-oid="n9w6qw3">
                                         {formatFileSize(originalFileSize)}
                                     </span>
                                 </div>
                                 {compressedFileSize > 0 &&
                                     compressedFileSize !== originalFileSize && (
-                                        <div data-oid="6tt0fiu">
-                                            <span className="text-gray-600" data-oid="4ulb0m2">
+                                        <div data-oid="xt8g_q8">
+                                            <span className="text-gray-600" data-oid="zkrmbdm">
                                                 Optimiert:
                                             </span>
                                             <span
                                                 className="ml-2 font-medium text-green-600"
-                                                data-oid="g8pu9ls"
+                                                data-oid="_at:z:4"
                                             >
                                                 {formatFileSize(compressedFileSize)}
                                             </span>
@@ -486,11 +486,11 @@ export function SmartphonePhotoCapture({
                 )}
 
                 {/* Guest Info */}
-                <div className="space-y-4" data-oid="5obyr_1">
-                    <div data-oid="o:rv1t7">
+                <div className="space-y-4" data-oid="5mw4z7i">
+                    <div data-oid="bv3vsyl">
                         <label
                             className="block text-sm font-medium text-gray-700 mb-2"
-                            data-oid="5845wer"
+                            data-oid="f:ynyvf"
                         >
                             Ihr Name *
                         </label>
@@ -501,14 +501,14 @@ export function SmartphonePhotoCapture({
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent wedding-text"
                             placeholder="Wie sollen wir Sie nennen?"
                             required
-                            data-oid="rvt8j_:"
+                            data-oid="pin0wz3"
                         />
                     </div>
 
-                    <div data-oid="bzh:0q5">
+                    <div data-oid="erjt72o">
                         <label
                             className="block text-sm font-medium text-gray-700 mb-2"
-                            data-oid="d65_zbw"
+                            data-oid="36.0y6w"
                         >
                             Nachricht zu diesem Foto (optional)
                         </label>
@@ -518,27 +518,27 @@ export function SmartphonePhotoCapture({
                             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent wedding-text"
                             rows={3}
                             placeholder="Erzählen Sie uns etwas zu diesem besonderen Moment..."
-                            data-oid="rzrn4_:"
+                            data-oid="31m_2go"
                         />
                     </div>
                 </div>
 
                 {/* File Format Info */}
-                <div className="bg-gray-50 rounded-lg p-4" data-oid="b_yoewv">
-                    <h4 className="text-sm font-medium text-gray-700 mb-2" data-oid="w6zk1id">
+                <div className="bg-gray-50 rounded-lg p-4" data-oid="j0b3:am">
+                    <h4 className="text-sm font-medium text-gray-700 mb-2" data-oid="f_w3fjh">
                         📋 Technische Informationen
                     </h4>
-                    <div className="text-xs text-gray-600 space-y-1" data-oid="7dql9xq">
-                        <p data-oid="apkx-in">
-                            <strong data-oid="gfke6p2">Unterstützte Formate:</strong>{' '}
+                    <div className="text-xs text-gray-600 space-y-1" data-oid="pv5:hh3">
+                        <p data-oid="umf2bpk">
+                            <strong data-oid="7s0h833">Unterstützte Formate:</strong>{' '}
                             {allowedFormats.map((f) => f.split('/')[1].toUpperCase()).join(', ')}
                         </p>
-                        <p data-oid="3v9w26:">
-                            <strong data-oid="ebuvc47">Maximale Dateigröße:</strong>{' '}
+                        <p data-oid="w8axc5y">
+                            <strong data-oid="4p_q827">Maximale Dateigröße:</strong>{' '}
                             {formatFileSize(maxFileSize)}
                         </p>
-                        <p data-oid="03xlcuj">
-                            <strong data-oid=":uwgx9b">Automatische Optimierung:</strong> Bilder
+                        <p data-oid="t_:swc8">
+                            <strong data-oid="knbt8bd">Automatische Optimierung:</strong> Bilder
                             werden für schnelleres Laden komprimiert
                         </p>
                     </div>
@@ -548,14 +548,15 @@ export function SmartphonePhotoCapture({
                 {error && (
                     <div
                         className="bg-red-50 border border-red-200 rounded-lg p-4"
-                        data-oid="7qd_e5q"
+                        data-oid="1jp54c0"
                     >
-                        <div className="flex items-start gap-3" data-oid="8tpvir2">
+                        <div className="flex items-start gap-3" data-oid="o1.x42g">
                             <AlertCircle
                                 className="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"
-                                data-oid="oc4als2"
+                                data-oid="a128wme"
                             />
-                            <p className="text-red-700 text-sm" data-oid="r.ky-aa">
+
+                            <p className="text-red-700 text-sm" data-oid="4o:s85i">
                                 {error}
                             </p>
                         </div>
@@ -567,13 +568,13 @@ export function SmartphonePhotoCapture({
                     type="submit"
                     disabled={isUploading || isCompressing || !selectedFile || !guestName.trim()}
                     className="w-full bg-gradient-to-r from-orange-400 to-blue-400 text-white py-4 px-6 rounded-xl hover:from-orange-500 hover:to-blue-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed font-medium text-lg shadow-lg"
-                    data-oid="09nx0d_"
+                    data-oid="x28cv5."
                 >
                     {isUploading ? (
-                        <div className="flex items-center justify-center gap-3" data-oid="5n8lrg_">
+                        <div className="flex items-center justify-center gap-3" data-oid="vh0ysui">
                             <div
                                 className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"
-                                data-oid="ffn:tvd"
+                                data-oid="of60n73"
                             ></div>
                             Wird hochgeladen...
                         </div>
@@ -584,7 +585,7 @@ export function SmartphonePhotoCapture({
             </form>
 
             {/* Hidden canvas for image compression */}
-            <canvas ref={canvasRef} className="hidden" data-oid="4arwo:9" />
+            <canvas ref={canvasRef} className="hidden" data-oid="hehm_rq" />
         </div>
     );
 }

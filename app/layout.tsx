@@ -25,9 +25,9 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <html
             lang="de"
             className={`${customHelloBellaYzApo.variable} ${playfairDisplay.variable} ${inter.variable}`}
-            data-oid="t0g:3he"
+            data-oid="ap:lr61"
         >
-            <body className="font-sans" data-oid="qtan71o">
+            <body className="font-sans" data-oid="oruh3j1">
                 {children}
             </body>
         </html>

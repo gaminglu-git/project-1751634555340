@@ -60,10 +60,10 @@ export default function AdminPage() {
         return (
             <div
                 className="min-h-screen bg-gray-50 flex items-center justify-center"
-                data-oid="gj:z:xv"
+                data-oid="1tpf2tw"
             >
-                <div className="bg-white p-8 rounded-lg shadow-md" data-oid="dthnzhk">
-                    <h1 className="text-2xl font-bold mb-4" data-oid="ci86nsc">
+                <div className="bg-white p-8 rounded-lg shadow-md" data-oid="5bkknhd">
+                    <h1 className="text-2xl font-bold mb-4" data-oid="_mm5gua">
                         Admin Login
                     </h1>
                     <input
@@ -72,13 +72,13 @@ export default function AdminPage() {
                         value={adminKey}
                         onChange={(e) => setAdminKey(e.target.value)}
                         className="w-full p-3 border rounded-lg mb-4"
-                        data-oid=":-jd_qz"
+                        data-oid="8lhx0-m"
                     />
 
                     <button
                         onClick={fetchRSVPs}
                         className="w-full bg-blue-500 text-white p-3 rounded-lg hover:bg-blue-600"
-                        data-oid="bj3yb6."
+                        data-oid="w53lv.p"
                     >
                         Login
                     </button>
@@ -88,115 +88,115 @@ export default function AdminPage() {
     }
 
     return (
-        <div className="min-h-screen bg-gray-50 p-6" data-oid=".cf8h4l">
-            <div className="max-w-7xl mx-auto" data-oid="ay_j.8n">
-                <h1 className="text-3xl font-bold mb-8" data-oid="rddag1x">
+        <div className="min-h-screen bg-gray-50 p-6" data-oid="2o674y5">
+            <div className="max-w-7xl mx-auto" data-oid="zdvc.mv">
+                <h1 className="text-3xl font-bold mb-8" data-oid="olqsna3">
                     RSVP Admin Dashboard
                 </h1>
 
                 {stats && (
-                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-oid="v50-mfw">
-                        <div className="bg-white p-6 rounded-lg shadow" data-oid="afd046g">
-                            <h3 className="text-lg font-semibold text-gray-700" data-oid="mnw7.rf">
+                    <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8" data-oid="a7wl8e2">
+                        <div className="bg-white p-6 rounded-lg shadow" data-oid="tfzqry8">
+                            <h3 className="text-lg font-semibold text-gray-700" data-oid="uhz:enn">
                                 Gesamt Anmeldungen
                             </h3>
-                            <p className="text-3xl font-bold text-blue-600" data-oid="vxkpnw0">
+                            <p className="text-3xl font-bold text-blue-600" data-oid="g54krlz">
                                 {stats.total}
                             </p>
                         </div>
-                        <div className="bg-white p-6 rounded-lg shadow" data-oid="kcbjmt3">
-                            <h3 className="text-lg font-semibold text-gray-700" data-oid="r-8pkf0">
+                        <div className="bg-white p-6 rounded-lg shadow" data-oid="z76urv1">
+                            <h3 className="text-lg font-semibold text-gray-700" data-oid="1n0avfg">
                                 Zusagen
                             </h3>
-                            <p className="text-3xl font-bold text-green-600" data-oid="572tsoa">
+                            <p className="text-3xl font-bold text-green-600" data-oid="3ztc17v">
                                 {stats.attending}
                             </p>
                         </div>
-                        <div className="bg-white p-6 rounded-lg shadow" data-oid="xijiub3">
-                            <h3 className="text-lg font-semibold text-gray-700" data-oid="n6qbow5">
+                        <div className="bg-white p-6 rounded-lg shadow" data-oid="0p141o5">
+                            <h3 className="text-lg font-semibold text-gray-700" data-oid="_6eu6t4">
                                 Absagen
                             </h3>
-                            <p className="text-3xl font-bold text-red-600" data-oid="03w5oqr">
+                            <p className="text-3xl font-bold text-red-600" data-oid="kc8n48t">
                                 {stats.notAttending}
                             </p>
                         </div>
-                        <div className="bg-white p-6 rounded-lg shadow" data-oid="qfq29nc">
-                            <h3 className="text-lg font-semibold text-gray-700" data-oid="ddh3uh0">
+                        <div className="bg-white p-6 rounded-lg shadow" data-oid="v1n3oa2">
+                            <h3 className="text-lg font-semibold text-gray-700" data-oid="03m74ut">
                                 Gesamt Gäste
                             </h3>
-                            <p className="text-3xl font-bold text-purple-600" data-oid="ige:318">
+                            <p className="text-3xl font-bold text-purple-600" data-oid="2-o3.r-">
                                 {stats.totalGuests}
                             </p>
                         </div>
                     </div>
                 )}
 
-                <div className="bg-white rounded-lg shadow overflow-hidden" data-oid="inyx4d7">
-                    <div className="px-6 py-4 border-b" data-oid="z1d3p-y">
-                        <h2 className="text-xl font-semibold" data-oid="ul73jgx">
+                <div className="bg-white rounded-lg shadow overflow-hidden" data-oid="d7l5__-">
+                    <div className="px-6 py-4 border-b" data-oid="-1vrb_q">
+                        <h2 className="text-xl font-semibold" data-oid="79m4-o2">
                             Alle Anmeldungen
                         </h2>
                     </div>
-                    <div className="overflow-x-auto" data-oid="be96q-2">
-                        <table className="w-full" data-oid="eug_bhl">
-                            <thead className="bg-gray-50" data-oid="vsilrbn">
-                                <tr data-oid="9k13x6b">
+                    <div className="overflow-x-auto" data-oid="ck_4hbx">
+                        <table className="w-full" data-oid="tkd-8-1">
+                            <thead className="bg-gray-50" data-oid="332-blz">
+                                <tr data-oid="_crf8j.">
                                     <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                                        data-oid="4jc3xz1"
+                                        data-oid="al5yu_8"
                                     >
                                         Name
                                     </th>
                                     <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                                        data-oid="zb1c6:3"
+                                        data-oid=":yly47e"
                                     >
                                         E-Mail
                                     </th>
                                     <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                                        data-oid="c2xbd96"
+                                        data-oid="wb7ygyn"
                                     >
                                         Teilnahme
                                     </th>
                                     <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                                        data-oid="rksr7wk"
+                                        data-oid="c7n6b2p"
                                     >
                                         Menü
                                     </th>
                                     <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                                        data-oid="xtz8i-m"
+                                        data-oid="yqbzk_v"
                                     >
                                         Begleitung
                                     </th>
                                     <th
                                         className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase"
-                                        data-oid="0oh96wb"
+                                        data-oid="6ot_8l."
                                     >
                                         Datum
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-gray-200" data-oid="l11tl9:">
+                            <tbody className="divide-y divide-gray-200" data-oid="_k8j1hg">
                                 {rsvps.map((rsvp) => (
-                                    <tr key={rsvp.id} data-oid="9jatq0.">
+                                    <tr key={rsvp.id} data-oid="vdddlkc">
                                         <td
                                             className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900"
-                                            data-oid="i297hg9"
+                                            data-oid="prm-bdz"
                                         >
                                             {rsvp.name}
                                         </td>
                                         <td
                                             className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                            data-oid="irj972z"
+                                            data-oid="kkwedop"
                                         >
                                             {rsvp.email}
                                         </td>
                                         <td
                                             className="px-6 py-4 whitespace-nowrap"
-                                            data-oid="1h5hisn"
+                                            data-oid="ninewxk"
                                         >
                                             <span
                                                 className={`px-2 py-1 text-xs rounded-full ${
@@ -204,20 +204,20 @@ export default function AdminPage() {
                                                         ? 'bg-green-100 text-green-800'
                                                         : 'bg-red-100 text-red-800'
                                                 }`}
-                                                data-oid="sis16r."
+                                                data-oid="2pvhs-c"
                                             >
                                                 {rsvp.attendance === 'yes' ? 'Zusage' : 'Absage'}
                                             </span>
                                         </td>
                                         <td
                                             className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                            data-oid="iyu7voo"
+                                            data-oid="60w-8f5"
                                         >
                                             {rsvp.mealPreference || '-'}
                                         </td>
                                         <td
                                             className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                            data-oid="_3d70r2"
+                                            data-oid=":zlt00:"
                                         >
                                             {rsvp.plusOne
                                                 ? `${rsvp.plusOneName} (${rsvp.plusOneMeal})`
@@ -225,7 +225,7 @@ export default function AdminPage() {
                                         </td>
                                         <td
                                             className="px-6 py-4 whitespace-nowrap text-sm text-gray-500"
-                                            data-oid="mnnk522"
+                                            data-oid="b2p-iom"
                                         >
                                             {new Date(rsvp.createdAt).toLocaleDateString('de-DE')}
                                         </td>

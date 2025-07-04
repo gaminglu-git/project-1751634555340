@@ -94,13 +94,13 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
         return (
             <div
                 className="bg-green-50 border border-green-200 rounded-lg p-6 text-center"
-                data-oid="v-gcmd0"
+                data-oid="8dxv67k"
             >
-                <Check className="w-12 h-12 text-green-500 mx-auto mb-4" data-oid="n5-rb7." />
-                <h3 className="text-lg font-medium text-green-800 mb-2" data-oid="7rrj4s7">
+                <Check className="w-12 h-12 text-green-500 mx-auto mb-4" data-oid="gpu:gk." />
+                <h3 className="text-lg font-medium text-green-800 mb-2" data-oid="_smrb6a">
                     Foto erfolgreich hochgeladen!
                 </h3>
-                <p className="text-green-600" data-oid=".j-.bp5">
+                <p className="text-green-600" data-oid="w1-822b">
                     Vielen Dank! Ihr Foto wird nach Überprüfung in der Galerie angezeigt.
                 </p>
             </div>
@@ -110,24 +110,24 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
     return (
         <div
             className="bg-white/70 backdrop-blur-sm rounded-lg p-6 border border-orange-100"
-            data-oid="_bpj21m"
+            data-oid="ebkm5bh"
         >
-            <h3 className="text-xl font-medium text-gray-700 mb-4 wedding-title" data-oid="-sdq2y.">
+            <h3 className="text-xl font-medium text-gray-700 mb-4 wedding-title" data-oid="870le0g">
                 📸 Foto hinzufügen
             </h3>
 
-            <form onSubmit={handleSubmit} className="space-y-4" data-oid="kyb4k38">
+            <form onSubmit={handleSubmit} className="space-y-4" data-oid="as.ovby">
                 {/* File Selection */}
-                <div className="space-y-3" data-oid="cam_phs">
-                    <div className="grid grid-cols-2 gap-3" data-oid="r.jrmrj">
+                <div className="space-y-3" data-oid="02btlto">
+                    <div className="grid grid-cols-2 gap-3" data-oid="3tvycaq">
                         <button
                             type="button"
                             onClick={() => fileInputRef.current?.click()}
                             className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-orange-300 rounded-lg hover:border-orange-400 hover:bg-orange-50 transition-colors"
-                            data-oid="9y3dacw"
+                            data-oid="w.8w:5v"
                         >
-                            <Upload className="w-5 h-5 text-orange-500" data-oid="u6:qdke" />
-                            <span className="text-sm font-medium text-gray-700" data-oid="84qx8kc">
+                            <Upload className="w-5 h-5 text-orange-500" data-oid="lb:y-07" />
+                            <span className="text-sm font-medium text-gray-700" data-oid="j8ufm7t">
                                 Datei wählen
                             </span>
                         </button>
@@ -136,10 +136,10 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
                             type="button"
                             onClick={() => cameraInputRef.current?.click()}
                             className="flex items-center justify-center gap-2 p-4 border-2 border-dashed border-blue-300 rounded-lg hover:border-blue-400 hover:bg-blue-50 transition-colors"
-                            data-oid="0vy651:"
+                            data-oid="td.-n4z"
                         >
-                            <Camera className="w-5 h-5 text-blue-500" data-oid="nkssp_f" />
-                            <span className="text-sm font-medium text-gray-700" data-oid="djmn80n">
+                            <Camera className="w-5 h-5 text-blue-500" data-oid=":iyy9qw" />
+                            <span className="text-sm font-medium text-gray-700" data-oid="_q-4dut">
                                 Foto aufnehmen
                             </span>
                         </button>
@@ -151,7 +151,7 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
                         accept="image/*"
                         onChange={handleFileInputChange}
                         className="hidden"
-                        data-oid="1avexdb"
+                        data-oid="ckylgzd"
                     />
 
                     <input
@@ -161,37 +161,37 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
                         capture="environment"
                         onChange={handleFileInputChange}
                         className="hidden"
-                        data-oid="7x9l85."
+                        data-oid="yu.ihic"
                     />
                 </div>
 
                 {/* Preview */}
                 {previewUrl && (
-                    <div className="relative" data-oid=":os35bu">
+                    <div className="relative" data-oid="63edyaz">
                         <img
                             src={previewUrl}
                             alt="Vorschau"
                             className="w-full h-48 object-cover rounded-lg"
-                            data-oid="3p8tpbh"
+                            data-oid="willgn2"
                         />
 
                         <button
                             type="button"
                             onClick={clearSelection}
                             className="absolute top-2 right-2 p-1 bg-red-500 text-white rounded-full hover:bg-red-600 transition-colors"
-                            data-oid=".e-es6_"
+                            data-oid="gslojdb"
                         >
-                            <X className="w-4 h-4" data-oid="7wa8zx5" />
+                            <X className="w-4 h-4" data-oid="tnyabc2" />
                         </button>
                     </div>
                 )}
 
                 {/* Guest Info */}
-                <div className="space-y-3" data-oid="0f_-76k">
-                    <div data-oid="il8064f">
+                <div className="space-y-3" data-oid="by1t3_9">
+                    <div data-oid="bmb5cx.">
                         <label
                             className="block text-sm font-medium text-gray-700 mb-1"
-                            data-oid="k72sxdq"
+                            data-oid="s_wtaqp"
                         >
                             Ihr Name *
                         </label>
@@ -202,14 +202,14 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                             placeholder="Wie sollen wir Sie nennen?"
                             required
-                            data-oid="-unc7f1"
+                            data-oid="07dcmg3"
                         />
                     </div>
 
-                    <div data-oid="dk5eo8j">
+                    <div data-oid="_fh0d0z">
                         <label
                             className="block text-sm font-medium text-gray-700 mb-1"
-                            data-oid="wu83erh"
+                            data-oid="3wfd.4n"
                         >
                             Nachricht (optional)
                         </label>
@@ -219,7 +219,7 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-orange-500 focus:border-transparent"
                             rows={2}
                             placeholder="Möchten Sie etwas zu diesem Foto sagen?"
-                            data-oid="wiqmoqk"
+                            data-oid="fv3f1hr"
                         />
                     </div>
                 </div>
@@ -228,9 +228,9 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
                 {error && (
                     <div
                         className="bg-red-50 border border-red-200 rounded-lg p-3"
-                        data-oid="at626s1"
+                        data-oid="hcxx39w"
                     >
-                        <p className="text-red-600 text-sm" data-oid="f4t1x6d">
+                        <p className="text-red-600 text-sm" data-oid="7pmvo94">
                             {error}
                         </p>
                     </div>
@@ -241,7 +241,7 @@ export function PhotoUpload({ onUploadSuccess }: PhotoUploadProps) {
                     type="submit"
                     disabled={isUploading || !selectedFile || !guestName.trim()}
                     className="w-full bg-gradient-to-r from-orange-400 to-blue-400 text-white py-3 px-4 rounded-lg hover:from-orange-500 hover:to-blue-500 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-                    data-oid="409667q"
+                    data-oid="5-c-okw"
                 >
                     {isUploading ? 'Wird hochgeladen...' : 'Foto hochladen'}
                 </button>

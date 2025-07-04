@@ -50,12 +50,12 @@ export function GuestPhotos() {
 
     if (loading) {
         return (
-            <div className="text-center py-8" data-oid="sei8j:y">
+            <div className="text-center py-8" data-oid="142sndu">
                 <div
                     className="animate-spin rounded-full h-8 w-8 border-b-2 border-orange-500 mx-auto"
-                    data-oid="n12bpks"
+                    data-oid="z450_qx"
                 ></div>
-                <p className="text-gray-600 mt-2" data-oid="txigk6c">
+                <p className="text-gray-600 mt-2" data-oid="wv.7g54">
                     Fotos werden geladen...
                 </p>
             </div>
@@ -66,9 +66,9 @@ export function GuestPhotos() {
         return (
             <div
                 className="bg-red-50 border border-red-200 rounded-lg p-4 text-center"
-                data-oid="jdkxyvr"
+                data-oid="3lpjgsd"
             >
-                <p className="text-red-600" data-oid="hl0v7iz">
+                <p className="text-red-600" data-oid="s4ws8t2">
                     {error}
                 </p>
             </div>
@@ -77,14 +77,14 @@ export function GuestPhotos() {
 
     if (photos.length === 0) {
         return (
-            <div className="text-center py-8" data-oid="9kk867a">
-                <div className="text-4xl mb-4" data-oid="98r8kvr">
+            <div className="text-center py-8" data-oid=".nroxp6">
+                <div className="text-4xl mb-4" data-oid="o1bpk:-">
                     📷
                 </div>
-                <h3 className="text-lg font-medium text-gray-700 mb-2" data-oid="tkf6z.0">
+                <h3 className="text-lg font-medium text-gray-700 mb-2" data-oid="wwi.7pr">
                     Noch keine Gästefotos
                 </h3>
-                <p className="text-gray-600" data-oid="5of4:x_">
+                <p className="text-gray-600" data-oid="agdnk1n">
                     Seien Sie der Erste und teilen Sie ein Foto mit uns!
                 </p>
             </div>
@@ -92,56 +92,57 @@ export function GuestPhotos() {
     }
 
     return (
-        <div className="space-y-6" data-oid="b94q2:h">
-            <div className="text-center mb-6" data-oid="-md0p4n">
+        <div className="space-y-6" data-oid="-4709xw">
+            <div className="text-center mb-6" data-oid="j7metwx">
                 <h3
                     className="text-2xl font-medium text-gray-700 mb-2 wedding-title"
-                    data-oid="ght.jlu"
+                    data-oid="l.n2lql"
                 >
                     📸 Gästefotos ({photos.length})
                 </h3>
-                <p className="text-gray-600" data-oid="0.ydn45">
+                <p className="text-gray-600" data-oid="g_hpogv">
                     Wunderbare Momente, die unsere Gäste mit uns geteilt haben
                 </p>
             </div>
 
             <div
                 className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-                data-oid="xfn7gsq"
+                data-oid="dp4gy_5"
             >
                 {photos.map((photo) => (
                     <div
                         key={photo.id}
                         className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow"
-                        data-oid="eikm6ek"
+                        data-oid="05k-qk9"
                     >
-                        <div className="aspect-square relative" data-oid="3m:ansq">
+                        <div className="aspect-square relative" data-oid="tauo_gl">
                             <img
                                 src={`/uploads/guest-photos/${photo.filename}`}
                                 alt={`Foto von ${photo.guestName}`}
                                 className="w-full h-full object-cover"
                                 loading="lazy"
-                                data-oid="7ahz.b-"
+                                data-oid="gxkr137"
                             />
                         </div>
 
-                        <div className="p-4" data-oid=".68f_01">
-                            <div className="flex items-center gap-2 mb-2" data-oid="q6lprw1">
-                                <Heart className="w-4 h-4 text-red-500" data-oid="_zukkig" />
-                                <span className="font-medium text-gray-700" data-oid="1twmtou">
+                        <div className="p-4" data-oid="yr6ok4w">
+                            <div className="flex items-center gap-2 mb-2" data-oid="fwzyb93">
+                                <Heart className="w-4 h-4 text-red-500" data-oid="bz8516a" />
+                                <span className="font-medium text-gray-700" data-oid=".l54sib">
                                     {photo.guestName}
                                 </span>
                             </div>
 
                             {photo.message && (
-                                <div className="flex items-start gap-2 mb-3" data-oid="-09f:25">
+                                <div className="flex items-start gap-2 mb-3" data-oid="4qterz.">
                                     <MessageCircle
                                         className="w-4 h-4 text-blue-500 mt-0.5 flex-shrink-0"
-                                        data-oid="7hvp9yd"
+                                        data-oid="e_ax_2v"
                                     />
+
                                     <p
                                         className="text-gray-600 text-sm leading-relaxed"
-                                        data-oid="txbo:8i"
+                                        data-oid="sq4kk76"
                                     >
                                         "{photo.message}"
                                     </p>
@@ -150,10 +151,10 @@ export function GuestPhotos() {
 
                             <div
                                 className="flex items-center gap-2 text-xs text-gray-500"
-                                data-oid="fis8w3z"
+                                data-oid="g1tf_1x"
                             >
-                                <Calendar className="w-3 h-3" data-oid="j.bngh2" />
-                                <span data-oid=":gy4i85">{formatDate(photo.createdAt)}</span>
+                                <Calendar className="w-3 h-3" data-oid=".27zlei" />
+                                <span data-oid="va3sg9i">{formatDate(photo.createdAt)}</span>
                             </div>
                         </div>
                     </div>

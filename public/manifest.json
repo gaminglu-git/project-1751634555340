@@ -1,0 +1,20 @@
+{
+    "name": "Johanna & Lukas Hochzeit",
+    "short_name": "Hochzeit J&L",
+    "description": "Hochzeitswebsite mit Foto-Sharing",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#fef7ed",
+    "theme_color": "#fb923c",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/favicon.ico",
+            "sizes": "64x64 32x32 24x24 16x16",
+            "type": "image/x-icon"
+        }
+    ],
+    "capabilities": ["camera", "file_system_access"],
+    "categories": ["lifestyle", "photo"],
+    "screenshots": []
+}
