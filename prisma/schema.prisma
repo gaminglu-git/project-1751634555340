@@ -27,3 +27,17 @@ model RSVP {
 
   @@map("rsvps")
 }
+
+model GuestPhoto {
+  id          String   @id @default(cuid())
+  filename    String
+  originalName String
+  guestName   String
+  message     String?
+  mimeType    String
+  size        Int
+  createdAt   DateTime @default(now())
+  approved    Boolean  @default(false)
+
+  @@map("guest_photos")
+}

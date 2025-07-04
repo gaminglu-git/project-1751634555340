@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { PhotoUpload } from '@/components/PhotoUpload';
+import { GuestPhotos } from '@/components/GuestPhotos';
 
 // Zod Schema für Validierung
 const rsvpSchema = z
@@ -695,165 +697,176 @@ export default function Page() {
                 )}
 
                 {activeTab === 'gallery' && (
-                    <div
-                        className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
-                        data-oid="lljtp8p"
-                    >
-                        <h2
-                            className="text-4xl wedding-title text-center text-gray-700 mb-8"
-                            data-oid="yexjqj5"
-                        >
-                            Unsere Galerie
-                        </h2>
-
+                    <div className="space-y-8" data-oid="0ed8pgr">
+                        {/* Unsere Bilder */}
                         <div
-                            className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
-                            data-oid="28skqpx"
+                            className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-orange-100"
+                            data-oid="lljtp8p"
                         >
-                            {/* Placeholder Images - Replace with your actual photos */}
-                            <div
-                                className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="di5nd68"
+                            <h2
+                                className="text-4xl wedding-title text-center text-gray-700 mb-8"
+                                data-oid="yexjqj5"
                             >
-                                <div className="text-center" data-oid="6qm70pd">
-                                    <div className="text-4xl mb-2" data-oid="g39b0qs">
-                                        💕
-                                    </div>
-                                    <p
-                                        className="text-sm text-gray-600 wedding-text"
-                                        data-oid="roz4yyd"
-                                    >
-                                        Erstes Date
-                                    </p>
-                                    <p
-                                        className="text-xs text-gray-500 wedding-text"
-                                        data-oid="hng-ou6"
-                                    >
-                                        Mai 2018
-                                    </p>
-                                </div>
-                            </div>
+                                Unsere Liebesgeschichte in Bildern
+                            </h2>
 
                             <div
-                                className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="qd6m4e-"
+                                className="grid md:grid-cols-2 lg:grid-cols-3 gap-6"
+                                data-oid="28skqpx"
                             >
-                                <div className="text-center" data-oid="auy6fhs">
-                                    <div className="text-4xl mb-2" data-oid="qhw:v.k">
-                                        🏖️
+                                {/* Placeholder Images - Replace with your actual photos */}
+                                <div
+                                    className="bg-gradient-to-br from-orange-100 to-orange-200 rounded-lg aspect-square flex items-center justify-center"
+                                    data-oid="di5nd68"
+                                >
+                                    <div className="text-center" data-oid="6qm70pd">
+                                        <div className="text-4xl mb-2" data-oid="g39b0qs">
+                                            💕
+                                        </div>
+                                        <p
+                                            className="text-sm text-gray-600 wedding-text"
+                                            data-oid="roz4yyd"
+                                        >
+                                            Erstes Date
+                                        </p>
+                                        <p
+                                            className="text-xs text-gray-500 wedding-text"
+                                            data-oid="hng-ou6"
+                                        >
+                                            Mai 2018
+                                        </p>
                                     </div>
-                                    <p
-                                        className="text-sm text-gray-600 wedding-text"
-                                        data-oid="p90txia"
-                                    >
-                                        Urlaub zusammen
-                                    </p>
-                                    <p
-                                        className="text-xs text-gray-500 wedding-text"
-                                        data-oid="5xg7mcr"
-                                    >
-                                        Sommer 2019
-                                    </p>
                                 </div>
-                            </div>
 
-                            <div
-                                className="bg-gradient-to-br from-orange-200 to-blue-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid=".92f.9r"
-                            >
-                                <div className="text-center" data-oid="4je31wd">
-                                    <div className="text-4xl mb-2" data-oid="oex4atz">
-                                        🏠
+                                <div
+                                    className="bg-gradient-to-br from-blue-100 to-blue-200 rounded-lg aspect-square flex items-center justify-center"
+                                    data-oid="qd6m4e-"
+                                >
+                                    <div className="text-center" data-oid="auy6fhs">
+                                        <div className="text-4xl mb-2" data-oid="qhw:v.k">
+                                            🏖️
+                                        </div>
+                                        <p
+                                            className="text-sm text-gray-600 wedding-text"
+                                            data-oid="p90txia"
+                                        >
+                                            Urlaub zusammen
+                                        </p>
+                                        <p
+                                            className="text-xs text-gray-500 wedding-text"
+                                            data-oid="5xg7mcr"
+                                        >
+                                            Sommer 2019
+                                        </p>
                                     </div>
-                                    <p
-                                        className="text-sm text-gray-600 wedding-text"
-                                        data-oid="_wwsp6s"
-                                    >
-                                        Zusammenziehen
-                                    </p>
-                                    <p
-                                        className="text-xs text-gray-500 wedding-text"
-                                        data-oid="9g880xq"
-                                    >
-                                        2020
-                                    </p>
                                 </div>
-                            </div>
 
-                            <div
-                                className="bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="nv.k:9-"
-                            >
-                                <div className="text-center" data-oid="cpt4kuj">
-                                    <div className="text-4xl mb-2" data-oid=":k5j9q.">
-                                        💍
+                                <div
+                                    className="bg-gradient-to-br from-orange-200 to-blue-200 rounded-lg aspect-square flex items-center justify-center"
+                                    data-oid=".92f.9r"
+                                >
+                                    <div className="text-center" data-oid="4je31wd">
+                                        <div className="text-4xl mb-2" data-oid="oex4atz">
+                                            🏠
+                                        </div>
+                                        <p
+                                            className="text-sm text-gray-600 wedding-text"
+                                            data-oid="_wwsp6s"
+                                        >
+                                            Zusammenziehen
+                                        </p>
+                                        <p
+                                            className="text-xs text-gray-500 wedding-text"
+                                            data-oid="9g880xq"
+                                        >
+                                            2020
+                                        </p>
                                     </div>
-                                    <p
-                                        className="text-sm text-gray-600 wedding-text"
-                                        data-oid="ha_55v3"
-                                    >
-                                        Verlobung
-                                    </p>
-                                    <p
-                                        className="text-xs text-gray-500 wedding-text"
-                                        data-oid="8n0l597"
-                                    >
-                                        August 2024
-                                    </p>
                                 </div>
-                            </div>
 
-                            <div
-                                className="bg-gradient-to-br from-green-100 to-green-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="ygrbyp8"
-                            >
-                                <div className="text-center" data-oid="hrzi93q">
-                                    <div className="text-4xl mb-2" data-oid="-yddb25">
-                                        📸
+                                <div
+                                    className="bg-gradient-to-br from-pink-100 to-pink-200 rounded-lg aspect-square flex items-center justify-center"
+                                    data-oid="nv.k:9-"
+                                >
+                                    <div className="text-center" data-oid="cpt4kuj">
+                                        <div className="text-4xl mb-2" data-oid=":k5j9q.">
+                                            💍
+                                        </div>
+                                        <p
+                                            className="text-sm text-gray-600 wedding-text"
+                                            data-oid="ha_55v3"
+                                        >
+                                            Verlobung
+                                        </p>
+                                        <p
+                                            className="text-xs text-gray-500 wedding-text"
+                                            data-oid="8n0l597"
+                                        >
+                                            August 2024
+                                        </p>
                                     </div>
-                                    <p
-                                        className="text-sm text-gray-600 wedding-text"
-                                        data-oid="nom1yrk"
-                                    >
-                                        Engagement Shooting
-                                    </p>
-                                    <p
-                                        className="text-xs text-gray-500 wedding-text"
-                                        data-oid="tlhyn3:"
-                                    >
-                                        2024
-                                    </p>
                                 </div>
-                            </div>
 
-                            <div
-                                className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg aspect-square flex items-center justify-center"
-                                data-oid="2t-lpyr"
-                            >
-                                <div className="text-center" data-oid="70y64e1">
-                                    <div className="text-4xl mb-2" data-oid="w:zk_.8">
-                                        🎉
+                                <div
+                                    className="bg-gradient-to-br from-green-100 to-green-200 rounded-lg aspect-square flex items-center justify-center"
+                                    data-oid="ygrbyp8"
+                                >
+                                    <div className="text-center" data-oid="hrzi93q">
+                                        <div className="text-4xl mb-2" data-oid="-yddb25">
+                                            📸
+                                        </div>
+                                        <p
+                                            className="text-sm text-gray-600 wedding-text"
+                                            data-oid="nom1yrk"
+                                        >
+                                            Engagement Shooting
+                                        </p>
+                                        <p
+                                            className="text-xs text-gray-500 wedding-text"
+                                            data-oid="tlhyn3:"
+                                        >
+                                            2024
+                                        </p>
                                     </div>
-                                    <p
-                                        className="text-sm text-gray-600 wedding-text"
-                                        data-oid="vt8viq-"
-                                    >
-                                        Bald verheiratet!
-                                    </p>
-                                    <p
-                                        className="text-xs text-gray-500 wedding-text"
-                                        data-oid="wy13boa"
-                                    >
-                                        2025
-                                    </p>
+                                </div>
+
+                                <div
+                                    className="bg-gradient-to-br from-purple-100 to-purple-200 rounded-lg aspect-square flex items-center justify-center"
+                                    data-oid="2t-lpyr"
+                                >
+                                    <div className="text-center" data-oid="70y64e1">
+                                        <div className="text-4xl mb-2" data-oid="w:zk_.8">
+                                            🎉
+                                        </div>
+                                        <p
+                                            className="text-sm text-gray-600 wedding-text"
+                                            data-oid="vt8viq-"
+                                        >
+                                            Bald verheiratet!
+                                        </p>
+                                        <p
+                                            className="text-xs text-gray-500 wedding-text"
+                                            data-oid="wy13boa"
+                                        >
+                                            2025
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
-                        <div className="mt-8 text-center" data-oid="bsm5b5b">
-                            <p className="text-gray-600 wedding-text" data-oid="9uxntjg">
-                                Mehr Fotos folgen nach der Hochzeit! 📷✨
-                            </p>
+                        {/* Foto Upload */}
+                        <PhotoUpload
+                            onUploadSuccess={() => window.location.reload()}
+                            data-oid="_i1n3ny"
+                        />
+
+                        {/* Gästefotos */}
+                        <div
+                            className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-blue-100"
+                            data-oid="5g1znq8"
+                        >
+                            <GuestPhotos data-oid="n:zc2cj" />
                         </div>
                     </div>
                 )}
