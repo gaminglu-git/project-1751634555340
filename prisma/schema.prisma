@@ -1,0 +1,29 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model RSVP {
+  id              String   @id @default(cuid())
+  name            String
+  email           String
+  phone           String?
+  attendance      String   // 'yes' or 'no'
+  mealPreference  String?  // 'meat', 'fish', 'vegetarian', 'vegan'
+  allergies       String?
+  plusOne         Boolean  @default(false)
+  plusOneName     String?
+  plusOneMeal     String?  // 'meat', 'fish', 'vegetarian', 'vegan'
+  message         String?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  @@map("rsvps")
+}
