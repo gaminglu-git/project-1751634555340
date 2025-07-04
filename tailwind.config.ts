@@ -64,6 +64,8 @@ const config: Config = {
             },
         },
         fontFamily: {
+            serif: ['var(--font-playfair)', 'Playfair Display', 'serif'],
+            sans: ['var(--font-inter)', 'Inter', 'sans-serif'],
             customHelloBellaYzApo: ['var(--font-custom-hello-bella-yz-apo)', 'monospace'],
         },
     },
