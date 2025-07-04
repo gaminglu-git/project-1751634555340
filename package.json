@@ -10,6 +10,7 @@
         "format": "prettier --write ."
     },
     "dependencies": {
+        "@hookform/resolvers": "^5.1.1",
         "@radix-ui/react-slot": "^1.1.0",
         "class-variance-authority": "^0.7.0",
         "clsx": "^2.1.1",
@@ -17,8 +18,10 @@
         "next": "14.2.23",
         "react": "^18",
         "react-dom": "^18",
+        "react-hook-form": "^7.59.0",
         "tailwind-merge": "^2.5.2",
-        "tailwindcss-animate": "^1.0.7"
+        "tailwindcss-animate": "^1.0.7",
+        "zod": "^3.25.73"
     },
     "devDependencies": {
         "@types/node": "^20",
